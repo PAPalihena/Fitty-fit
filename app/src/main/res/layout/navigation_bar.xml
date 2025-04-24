@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/navLogo"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_fittyfit_logo"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:id="@+id/navCommunity"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_community"
+        android:tint="@color/orange"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/navChallenges"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_challenges"
+        android:tint="@color/orange"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/navProfile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_profile"
+        android:tint="@color/orange"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/navNotifications"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_notifications"
+        android:tint="@color/orange"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/navMore"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_more"
+        android:tint="@color/orange"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:layout_marginEnd="16dp"/>
+
+</LinearLayout> 

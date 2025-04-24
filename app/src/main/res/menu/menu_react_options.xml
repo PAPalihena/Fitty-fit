@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/react_like"
+        android:title="Like"
+        android:icon="@drawable/ic_like"/>
+    <item
+        android:id="@+id/react_love"
+        android:title="Love"
+        android:icon="@drawable/ic_love"/>
+    <item
+        android:id="@+id/react_smile"
+        android:title="Smile"
+        android:icon="@drawable/ic_smile"/>
+    <item
+        android:id="@+id/react_amazed"
+        android:title="Amazed"
+        android:icon="@drawable/ic_amazed"/>
+</menu> 
