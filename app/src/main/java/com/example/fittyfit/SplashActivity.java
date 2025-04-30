@@ -15,9 +15,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Handler to start the RegisterActivity after SPLASH_DURATION
+        // Handler to start the LoginActivity after SPLASH_DURATION
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DURATION);

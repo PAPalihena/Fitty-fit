@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.fittyfit">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,16 +25,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
+        <activity
             android:name=".RegisterActivity"
-            android:exported="true"
-            android:theme="@style/Theme.FittyFit.NoActionBar">
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.FittyFit.NoActionBar">
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
         <activity
             android:name=".HomeActivity"
             android:exported="true"
@@ -48,13 +52,8 @@
         </activity>
         <activity
             android:name=".ChallengesActivity"
-            android:label="Challenges"
-            android:theme="@style/Theme.FittyFit.NoActionBar"
-            android:parentActivityName=".HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:label="Profile"
@@ -64,6 +63,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
+        <activity
+            android:name=".ChallengeDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
+        <activity
+            android:name=".ChallengeChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
     </application>
 
 </manifest>

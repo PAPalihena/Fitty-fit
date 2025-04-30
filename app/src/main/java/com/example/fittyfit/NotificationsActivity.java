@@ -37,7 +37,8 @@ public class NotificationsActivity extends AppCompatActivity {
         });
 
         navChallenges.setOnClickListener(v -> {
-            Intent intent = new Intent(NotificationsActivity.this, ChallengesActivity.class);
+            Intent intent = new Intent(NotificationsActivity.this, MainActivity.class);
+            intent.putExtra("selectedTab", R.id.navigation_challenges);
             startActivity(intent);
             finish();
         });

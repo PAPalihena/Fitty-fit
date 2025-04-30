@@ -48,7 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         navChallenges.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, ChallengesActivity.class);
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+            intent.putExtra("selectedTab", R.id.navigation_challenges);
             startActivity(intent);
             finish();
         });

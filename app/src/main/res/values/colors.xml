@@ -7,11 +7,47 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#FFFF5722</color>
-    <color name="light_gray">#FFE0E0E0</color>
-    <color name="gray">#FF9E9E9E</color>
-    <color name="dark_orange">#FF4500</color>
-    <color name="blue">#03A9F4</color>
-    <color name="yellow">#FFC107</color>
-    <color name="dark_gray">#A9A9A9</color>
+    
+    <!-- Primary Colors -->
+    <color name="orange">#FFFFA07A</color> <!-- Light Salmon -->
+    <color name="light_orange">#FFFFE4E1</color> <!-- Misty Rose -->
+    <color name="dark_orange">#FFFF8C69</color> <!-- Dark Salmon -->
+    <color name="primary_blue">#FF87CEEB</color> <!-- Sky Blue -->
+    <color name="primary_green">#FF98FB98</color> <!-- Pale Green -->
+    
+    <!-- Accent Colors -->
+    <color name="accent_coral">#FFFFB6C1</color> <!-- Light Pink -->
+    <color name="accent_mint">#FFB0E0E6</color> <!-- Powder Blue -->
+    <color name="accent_lavender">#FFE6E6FA</color> <!-- Lavender -->
+    <color name="accent_peach">#FFFFDAB9</color> <!-- Peach Puff -->
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FF4A4A4A</color> <!-- Soft Black -->
+    <color name="text_secondary">#FF757575</color> <!-- Medium Gray -->
+    <color name="gray">#757575</color> <!-- Medium Gray -->
+    <color name="light_gray">#FFF5F5F5</color> <!-- Light Gray -->
+    <color name="dark_gray">#FF424242</color> <!-- Dark Gray -->
+    
+    <!-- Background Colors -->
+    <color name="background">#FFF8F8FF</color> <!-- Ghost White -->
+    <color name="surface">#FFFFFFFF</color> <!-- White -->
+    <color name="divider">#FFE0E0E0</color> <!-- Light Gray -->
+    
+    <!-- State Colors -->
+    <color name="error">#FFFFB6C1</color> <!-- Light Pink -->
+    <color name="success">#FF98FB98</color> <!-- Pale Green -->
+    <color name="warning">#FFFFDAB9</color> <!-- Peach Puff -->
+    <color name="info">#FFB0E0E6</color> <!-- Powder Blue -->
+    
+    <!-- Additional Colors -->
+    <color name="primary_light">#FFFFE4E1</color> <!-- Misty Rose -->
+    <color name="primary_dark">#FFFF8C69</color> <!-- Dark Salmon -->
+    <color name="secondary">#FF87CEEB</color> <!-- Sky Blue -->
+    <color name="secondary_light">#FFE0FFFF</color> <!-- Light Cyan -->
+    <color name="secondary_dark">#FF4682B4</color> <!-- Steel Blue -->
+    
+    <!-- App Theme Colors -->
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#FF03DAC5</color>
 </resources>

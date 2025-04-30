@@ -81,7 +81,8 @@ public class CommunityActivity extends BaseActivity {
         });
 
         navChallenges.setOnClickListener(v -> {
-            Intent intent = new Intent(CommunityActivity.this, ChallengesActivity.class);
+            Intent intent = new Intent(CommunityActivity.this, MainActivity.class);
+            intent.putExtra("selectedTab", R.id.navigation_challenges);
             startActivity(intent);
             finish();
         });

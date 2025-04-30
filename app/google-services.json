@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "706882948739",
+    "firebase_url": "https://fittyfit-f0c01-default-rtdb.firebaseio.com",
+    "project_id": "fittyfit-f0c01",
+    "storage_bucket": "fittyfit-f0c01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706882948739:android:2fa9a9a8cb056d059f95b6",
+        "android_client_info": {
+          "package_name": "com.example.fittyfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706882948739-pe9f6lg407ohhamjbcm5c4f8hgk4vurr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fittyfit",
+            "certificate_hash": "669ecbdf9319e4f742e1cb46ad370f1e0fc47103"
+          }
+        },
+        {
+          "client_id": "706882948739-323ign848gaqd4m8853ma33ecdpgghic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVWG9G_6_nK1FyHl0Plp5Epi2CuUMOHcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706882948739-323ign848gaqd4m8853ma33ecdpgghic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

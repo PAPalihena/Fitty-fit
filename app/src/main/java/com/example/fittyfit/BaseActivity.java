@@ -28,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -37,6 +38,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!getClass().equals(CommunityActivity.class)) {
                     Intent intent = new Intent(this, CommunityActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -46,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!getClass().equals(ChallengesActivity.class)) {
                     Intent intent = new Intent(this, ChallengesActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -55,6 +58,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!getClass().equals(ProfileActivity.class)) {
                     Intent intent = new Intent(this, ProfileActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -64,6 +68,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!getClass().equals(NotificationsActivity.class)) {
                     Intent intent = new Intent(this, NotificationsActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
@@ -73,6 +78,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!getClass().equals(MoreActivity.class)) {
                     Intent intent = new Intent(this, MoreActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }
