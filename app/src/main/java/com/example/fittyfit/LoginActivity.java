@@ -3,6 +3,9 @@ package com.example.fittyfit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -22,6 +25,7 @@ public class LoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
+    private ImageView logoImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,15 @@ public class LoginActivity extends BaseActivity {
         // Set up Google Sign In button
         MaterialButton googleSignInButton = findViewById(R.id.googleSignInButton);
         googleSignInButton.setOnClickListener(v -> signIn());
+
+        // Set up logo animation
+        logoImageView = findViewById(R.id.logoImageView);
+        startLogoAnimation();
+    }
+
+    private void startLogoAnimation() {
+        Animation logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_animation);
+        logoImageView.startAnimation(logoAnimation);
     }
 
     private void signIn() {

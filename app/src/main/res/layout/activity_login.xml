@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/profile_background">
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_marginTop="64dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/ic_fittyfit_logo"
+        android:contentDescription="FittyFit Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,10 +20,11 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="Welcome to FittyFit"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="@color/profile_text_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView" />
@@ -33,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Your fitness journey starts here"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:textColor="@color/profile_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView" />
@@ -42,13 +45,17 @@
         android:id="@+id/googleSignInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="48dp"
-        android:padding="12dp"
+        android:padding="16dp"
         android:text="Sign in with Google"
         android:textSize="16sp"
         app:icon="@drawable/ic_google"
         app:iconGravity="textStart"
-        app:iconPadding="8dp"
+        app:iconPadding="12dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="@color/profile_primary"
+        android:textColor="@color/profile_card_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subtitleTextView" />
