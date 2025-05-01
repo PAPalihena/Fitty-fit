@@ -2,8 +2,11 @@ package com.example.fittyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.fittyfit.models.Challenge;
@@ -15,6 +18,8 @@ public class ChallengesActivity extends BaseActivity {
     private LinearProgressIndicator[] groupChallengeProgress;
     private FirebaseDatabaseHelper firebaseHelper;
     private String currentUserId;
+    private View challengeOptionsMenu;
+    private boolean isMenuVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,8 @@ public class ChallengesActivity extends BaseActivity {
         // Load challenges
         loadChallenges();
 
-        // Setup button click listeners
-        setupButtonListeners();
+        // Setup FAB and menu
+        setupFloatingActionButton();
     }
 
     private void initializeViews() {
@@ -60,6 +65,60 @@ public class ChallengesActivity extends BaseActivity {
         // Set level descriptions
         ((TextView) findViewById(R.id.personalLevelDesc)).setText("Fitness Warrior");
         ((TextView) findViewById(R.id.groupLevelDesc)).setText("Team Player");
+
+        // Initialize menu
+        challengeOptionsMenu = findViewById(R.id.challengeOptionsMenu);
+    }
+
+    private void setupFloatingActionButton() {
+        FloatingActionButton fab = findViewById(R.id.fabCreateChallenge);
+        TextView btnPersonal = findViewById(R.id.btnCreatePersonalChallenge);
+        TextView btnGroup = findViewById(R.id.btnCreateGroupChallenge);
+
+        fab.setOnClickListener(v -> toggleMenu());
+
+        btnPersonal.setOnClickListener(v -> {
+            // TODO: Launch create personal challenge activity
+            hideMenu();
+        });
+
+        btnGroup.setOnClickListener(v -> {
+            // TODO: Launch create group challenge activity
+            hideMenu();
+        });
+    }
+
+    private void toggleMenu() {
+        if (isMenuVisible) {
+            hideMenu();
+        } else {
+            showMenu();
+        }
+    }
+
+    private void showMenu() {
+        challengeOptionsMenu.setVisibility(View.VISIBLE);
+        Animation slideUp = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        challengeOptionsMenu.startAnimation(slideUp);
+        isMenuVisible = true;
+    }
+
+    private void hideMenu() {
+        Animation slideDown = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+        slideDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                challengeOptionsMenu.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        challengeOptionsMenu.startAnimation(slideDown);
+        isMenuVisible = false;
     }
 
     private void loadChallenges() {
@@ -100,17 +159,6 @@ public class ChallengesActivity extends BaseActivity {
             if (progressBars[index] != null) {
                 progressBars[index].setProgress(challenge.getProgress());
             }
-        }
-    }
-
-    private void setupButtonListeners() {
-        MaterialButton createChallengeButton = findViewById(R.id.createChallengeButton);
-        if (createChallengeButton != null) {
-            createChallengeButton.setOnClickListener(v -> {
-                // TODO: Implement create challenge functionality
-                // Intent intent = new Intent(this, CreateChallengeActivity.class);
-                // startActivity(intent);
-            });
         }
     }
 } 
