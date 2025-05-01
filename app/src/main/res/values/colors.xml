@@ -50,4 +50,15 @@
     <color name="colorPrimary">#FF6200EE</color>
     <color name="colorPrimaryDark">#FF3700B3</color>
     <color name="colorAccent">#FF03DAC5</color>
+    
+    <!-- Profile Screen Colors -->
+    <color name="profile_primary">#2196F3</color>
+    <color name="profile_secondary">#03A9F4</color>
+    <color name="profile_accent">#00BCD4</color>
+    <color name="profile_background">#F5F5F5</color>
+    <color name="profile_card_background">#FFFFFF</color>
+    <color name="profile_text_primary">#212121</color>
+    <color name="profile_text_secondary">#757575</color>
+    <color name="profile_divider">#E0E0E0</color>
+    <color name="profile_stats_background">#E3F2FD</color>
 </resources>

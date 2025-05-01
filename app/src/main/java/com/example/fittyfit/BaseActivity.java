@@ -2,9 +2,11 @@ package com.example.fittyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
@@ -74,13 +76,59 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         if (navMore != null) {
-            navMore.setOnClickListener(v -> {
-                if (!getClass().equals(MoreActivity.class)) {
-                    Intent intent = new Intent(this, MoreActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+            navMore.setOnClickListener(v -> showMoreMenu(v));
         }
+    }
+
+    private void showMoreMenu(View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.more_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_about) {
+                // Handle About Us click
+                showAboutDialog();
+                return true;
+            } else if (itemId == R.id.menu_settings) {
+                // Handle Settings click
+                showSettingsDialog();
+                return true;
+            }
+            return false;
+        });
+
+        popup.show();
+    }
+
+    private void showAboutDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("About Us")
+            .setMessage("FittyFit is your personal fitness companion. We help you achieve your fitness goals through challenges, community support, and personalized tracking.")
+            .setPositiveButton("OK", null)
+            .show();
+    }
+
+    private void showSettingsDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Settings")
+            .setItems(new String[]{"Notifications", "Privacy", "Account", "Help & Support"}, (dialog, which) -> {
+                // Handle settings options
+                switch (which) {
+                    case 0:
+                        // Handle Notifications settings
+                        break;
+                    case 1:
+                        // Handle Privacy settings
+                        break;
+                    case 2:
+                        // Handle Account settings
+                        break;
+                    case 3:
+                        // Handle Help & Support
+                        break;
+                }
+            })
+            .show();
     }
 } 

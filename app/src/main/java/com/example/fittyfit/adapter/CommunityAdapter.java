@@ -2,28 +2,22 @@ package com.example.fittyfit.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fittyfit.R;
 import com.example.fittyfit.model.CommunityPost;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.PostViewHolder> {
-
-    private List<CommunityPost> postList;
     private Context context;
+    private List<CommunityPost> postList;
 
     public CommunityAdapter(Context context, List<CommunityPost> postList) {
         this.context = context;
@@ -42,12 +36,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Post
         CommunityPost post = postList.get(position);
         holder.userName.setText(post.getUserName());
         holder.postContent.setText(post.getContent());
+        holder.postTime.setText(post.getTimeAgo());
+        holder.likeCount.setText(String.valueOf(post.getLikes()));
+        holder.commentCount.setText(String.valueOf(post.getComments()));
+        holder.shareCount.setText(String.valueOf(post.getShares()));
 
-        // Load profile image (placeholder for now)
-        // TODO: Use a library like Glide or Picasso to load actual user images
-        holder.userProfileImage.setImageResource(R.drawable.ic_profile); 
-
-        // Load post image if available
+        // Handle post image
         if (post.getImageResId() != 0) {
             holder.postImage.setImageResource(post.getImageResId());
             holder.postImage.setVisibility(View.VISIBLE);
@@ -55,10 +49,21 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Post
             holder.postImage.setVisibility(View.GONE);
         }
 
-        holder.btnReact.setOnClickListener(v -> showReactOptions(v, holder.btnReact));
-        holder.btnComment.setOnClickListener(v -> {
+        // Set click listeners
+        holder.likeButton.setOnClickListener(v -> {
+            // TODO: Implement like functionality
+        });
+
+        holder.commentButton.setOnClickListener(v -> {
             // TODO: Implement comment functionality
-            Toast.makeText(context, "Comment clicked for post by " + post.getUserName(), Toast.LENGTH_SHORT).show();
+        });
+
+        holder.shareButton.setOnClickListener(v -> {
+            // TODO: Implement share functionality
+        });
+
+        holder.menuButton.setOnClickListener(v -> {
+            // TODO: Implement menu functionality
         });
     }
 
@@ -67,54 +72,26 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Post
         return postList.size();
     }
 
-    private void showReactOptions(View anchor, Button reactButtonView) {
-        // Cast to MaterialButton
-        MaterialButton reactButton = (MaterialButton) reactButtonView;
-
-        PopupMenu popup = new PopupMenu(context, anchor);
-        popup.getMenuInflater().inflate(R.menu.menu_react_options, popup.getMenu());
-
-        popup.setOnMenuItemClickListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.react_like) {
-                reactButton.setText("Like");
-                reactButton.setIconResource(R.drawable.ic_like);
-                // TODO: Update reaction state
-            } else if (itemId == R.id.react_love) {
-                reactButton.setText("Love");
-                reactButton.setIconResource(R.drawable.ic_love);
-                // TODO: Update reaction state
-            } else if (itemId == R.id.react_smile) {
-                reactButton.setText("Smile");
-                reactButton.setIconResource(R.drawable.ic_smile);
-                // TODO: Update reaction state
-            } else if (itemId == R.id.react_amazed) {
-                reactButton.setText("Amazed");
-                reactButton.setIconResource(R.drawable.ic_amazed);
-                // TODO: Update reaction state
-            } else {
-                return false;
-            }
-            Toast.makeText(context, "Reacted: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            return true;
-        });
-        popup.show();
-    }
-
     static class PostViewHolder extends RecyclerView.ViewHolder {
+        TextView userName, postContent, postTime, likeCount, commentCount, shareCount;
+        View likeButton, commentButton, shareButton;
         ImageView userProfileImage, postImage;
-        TextView userName, postContent;
-        MaterialButton btnReact;
-        Button btnComment;
+        ImageView menuButton;
 
-        public PostViewHolder(@NonNull View itemView) {
+        PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            userProfileImage = itemView.findViewById(R.id.userProfileImage);
             userName = itemView.findViewById(R.id.userName);
             postContent = itemView.findViewById(R.id.postContent);
+            postTime = itemView.findViewById(R.id.postTime);
+            likeCount = itemView.findViewById(R.id.likeCount);
+            commentCount = itemView.findViewById(R.id.commentCount);
+            shareCount = itemView.findViewById(R.id.shareCount);
+            likeButton = itemView.findViewById(R.id.likeButton);
+            commentButton = itemView.findViewById(R.id.commentButton);
+            shareButton = itemView.findViewById(R.id.shareButton);
+            menuButton = itemView.findViewById(R.id.menuButton);
+            userProfileImage = itemView.findViewById(R.id.userProfileImage);
             postImage = itemView.findViewById(R.id.postImage);
-            btnReact = itemView.findViewById(R.id.btnReact);
-            btnComment = itemView.findViewById(R.id.btnComment);
         }
     }
 } 
