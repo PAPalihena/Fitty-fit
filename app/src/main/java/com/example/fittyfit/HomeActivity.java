@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -77,11 +78,11 @@ public class HomeActivity extends BaseActivity {
 
     private void initializeHealthTips() {
         healthTips = new ArrayList<>();
-        healthTips.add(new HealthTip("Hydration", "Stay hydrated throughout the day"));
-        healthTips.add(new HealthTip("Exercise", "Exercise for at least 30 minutes daily"));
-        healthTips.add(new HealthTip("Sleep", "Get 7-8 hours of sleep each night"));
-        healthTips.add(new HealthTip("Diet", "Eat a balanced diet with plenty of fruits and vegetables"));
-        healthTips.add(new HealthTip("Movement", "Take regular breaks from sitting"));
+        healthTips.add(new HealthTip("Hydration", "Stay hydrated throughout the day", R.drawable.health_tip_1));
+        healthTips.add(new HealthTip("Exercise", "Exercise for at least 30 minutes daily", R.drawable.health_tip_2));
+        healthTips.add(new HealthTip("Sleep", "Get 7-8 hours of sleep each night", R.drawable.health_tip_3));
+        healthTips.add(new HealthTip("Diet", "Eat a balanced diet with plenty of fruits and vegetables", R.drawable.health_tip_4));
+        healthTips.add(new HealthTip("Movement", "Take regular breaks from sitting", R.drawable.health_tip_5));
     }
 }
 
@@ -106,6 +107,7 @@ class HealthTipsAdapter extends RecyclerView.Adapter<HealthTipsAdapter.HealthTip
     public void onBindViewHolder(@NonNull HealthTipViewHolder holder, int position) {
         HealthTip healthTip = healthTips.get(position);
         holder.tipText.setText(healthTip.getTip());
+        holder.tipImage.setImageResource(healthTip.getImageResourceId());
     }
 
     @Override
@@ -115,10 +117,12 @@ class HealthTipsAdapter extends RecyclerView.Adapter<HealthTipsAdapter.HealthTip
 
     static class HealthTipViewHolder extends RecyclerView.ViewHolder {
         TextView tipText;
+        ImageView tipImage;
 
         public HealthTipViewHolder(@NonNull View itemView) {
             super(itemView);
             tipText = itemView.findViewById(R.id.tipText);
+            tipImage = itemView.findViewById(R.id.tipImage);
         }
     }
 } 

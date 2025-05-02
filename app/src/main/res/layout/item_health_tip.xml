@@ -10,16 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center">
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_health_tip"
-            android:tint="@color/orange"
-            android:layout_marginBottom="16dp"/>
+            android:id="@+id/tipImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tipText"
@@ -28,7 +26,9 @@
             android:textAlignment="center"
             android:textColor="@color/orange"
             android:textSize="16sp"
-            android:lineSpacingExtra="4dp"/>
+            android:lineSpacingExtra="4dp"
+            android:padding="16dp"
+            android:background="#FFFFFF"/>
 
     </LinearLayout>
 

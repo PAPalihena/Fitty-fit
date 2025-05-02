@@ -3,10 +3,12 @@ package com.example.fittyfit;
 public class HealthTip {
     private String title;
     private String tip;
+    private int imageResourceId;
 
-    public HealthTip(String title, String tip) {
+    public HealthTip(String title, String tip, int imageResourceId) {
         this.title = title;
         this.tip = tip;
+        this.imageResourceId = imageResourceId;
     }
 
     public String getTitle() {
@@ -15,5 +17,9 @@ public class HealthTip {
 
     public String getTip() {
         return tip;
+    }
+
+    public int getImageResourceId() {
+        return imageResourceId;
     }
 } 
