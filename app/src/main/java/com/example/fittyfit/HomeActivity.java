@@ -1,6 +1,8 @@
 package com.example.fittyfit;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,9 @@ public class HomeActivity extends BaseActivity {
     private TabLayout healthTipsTabLayout;
     private HealthTipsAdapter healthTipsAdapter;
     private List<HealthTip> healthTips;
+    private Handler autoSwipeHandler;
+    private Runnable autoSwipeRunnable;
+    private static final long SWIPE_INTERVAL = 5000; // 5 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +67,44 @@ public class HomeActivity extends BaseActivity {
                     // Customize tab appearance if needed
                 }).attach();
 
+        // Initialize auto-swipe
+        initializeAutoSwipe();
+
         // Update challenges
         updateChallenges();
+    }
+
+    private void initializeAutoSwipe() {
+        autoSwipeHandler = new Handler(Looper.getMainLooper());
+        autoSwipeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = healthTipsViewPager.getCurrentItem();
+                int nextItem = (currentItem + 1) % healthTips.size();
+                healthTipsViewPager.setCurrentItem(nextItem, true);
+                autoSwipeHandler.postDelayed(this, SWIPE_INTERVAL);
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startAutoSwipe();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopAutoSwipe();
+    }
+
+    private void startAutoSwipe() {
+        autoSwipeHandler.postDelayed(autoSwipeRunnable, SWIPE_INTERVAL);
+    }
+
+    private void stopAutoSwipe() {
+        autoSwipeHandler.removeCallbacks(autoSwipeRunnable);
     }
 
     private void updateChallenges() {
