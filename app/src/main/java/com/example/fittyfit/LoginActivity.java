@@ -54,6 +54,8 @@ public class LoginActivity extends BaseActivity {
 
     private void startLogoAnimation() {
         Animation logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_animation);
+        logoAnimation.setRepeatCount(Animation.INFINITE);
+        logoAnimation.setRepeatMode(Animation.REVERSE);
         logoImageView.startAnimation(logoAnimation);
     }
 

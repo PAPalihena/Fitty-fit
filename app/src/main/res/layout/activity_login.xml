@@ -3,61 +3,124 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/profile_background">
+    android:background="@drawable/register_background">
 
     <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="64dp"
-        android:src="@drawable/ic_fittyfit_logo"
-        android:contentDescription="FittyFit Logo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/loginBgImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/login_bg"
+        android:contentDescription="Login Background"
+        android:scaleType="fitCenter"
+        android:alpha="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-50dp"
+        android:elevation="0dp"/>
 
-    <TextView
-        android:id="@+id/titleTextView"
+    <LinearLayout
+        android:id="@+id/mainContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Welcome to FittyFit"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/profile_text_primary"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/subtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Your fitness journey starts here"
-        android:textSize="18sp"
-        android:textColor="@color/profile_text_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        <LinearLayout
+            android:id="@+id/welcomeTextContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:elevation="4dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/googleSignInButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="48dp"
-        android:padding="16dp"
-        android:text="Sign in with Google"
-        android:textSize="16sp"
-        app:icon="@drawable/ic_google"
-        app:iconGravity="textStart"
-        app:iconPadding="12dp"
-        app:cornerRadius="12dp"
-        app:backgroundTint="@color/profile_primary"
-        android:textColor="@color/profile_card_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subtitleTextView" />
+            <TextView
+                android:id="@+id/welcomeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:textColor="@color/intense_orange"
+                android:letterSpacing="0.05"
+                android:elevation="8dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:shadowColor="#40000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"/>
+
+            <TextView
+                android:id="@+id/welcomeTextReflection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:textColor="#40FF7F50"
+                android:letterSpacing="0.05"
+                android:rotationX="180"
+                android:alpha="0.5"
+                android:layout_marginTop="-15dp"
+                android:fontFamily="@font/dancing_script_bold"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/logoCardView"
+            android:layout_width="240dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
+
+            <ImageView
+                android:id="@+id/logoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_fittyfit_logo"
+                android:contentDescription="FittyFit Logo"
+                android:scaleType="fitCenter"
+                android:padding="16dp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/subtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Your fitness journey starts here"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/intense_orange"
+            android:letterSpacing="0.05"
+            android:fontFamily="@font/dancing_script_bold"
+            android:shadowColor="#40000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:layout_gravity="center_horizontal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/googleSignInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:padding="16dp"
+            android:text="Sign in with Google"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_google"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:cornerRadius="12dp"
+            app:backgroundTint="@color/darker_orange"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout> 

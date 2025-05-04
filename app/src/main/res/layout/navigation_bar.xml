@@ -27,7 +27,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_community"
-        android:tint="@color/orange"
+        android:tint="@color/darker_orange"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:layout_marginEnd="8dp"/>
@@ -37,7 +37,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_challenges"
-        android:tint="@color/orange"
+        android:tint="@color/darker_orange"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:layout_marginEnd="8dp"/>
@@ -47,7 +47,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_profile"
-        android:tint="@color/orange"
+        android:tint="@color/darker_orange"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:layout_marginEnd="8dp"/>
@@ -57,7 +57,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_notifications"
-        android:tint="@color/orange"
+        android:tint="@color/darker_orange"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:layout_marginEnd="8dp"/>
@@ -67,7 +67,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_more"
-        android:tint="@color/orange"
+        android:tint="@color/darker_orange"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:layout_marginEnd="16dp"/>

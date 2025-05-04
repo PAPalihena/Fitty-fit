@@ -39,46 +39,60 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Setup navigation bar
-        setupNavigationBar();
+        try {
+            // Setup navigation bar
+            setupNavigationBar();
 
-        // Initialize Firebase
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null) {
-            Log.e(TAG, "No user is currently signed in");
-            Toast.makeText(this, "Please sign in to view your profile", Toast.LENGTH_LONG).show();
-            // Redirect to login activity or handle accordingly
-            return;
+            // Initialize Firebase
+            mAuth = FirebaseAuth.getInstance();
+            if (mAuth.getCurrentUser() == null) {
+                Log.e(TAG, "No user is currently signed in");
+                Toast.makeText(this, "Please sign in to view your profile", Toast.LENGTH_LONG).show();
+                // Redirect to login activity
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return;
+            }
+
+            String userId = mAuth.getCurrentUser().getUid();
+            Log.d(TAG, "Current user ID: " + userId);
+            
+            userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            Log.d(TAG, "Database reference path: " + userRef.toString());
+
+            // Initialize views
+            initializeViews();
+
+            // Setup profile photo selection
+            setupProfilePhotoSelection();
+
+            // Load user data from Firebase
+            loadUserData();
+
+            // Setup button click listeners
+            setupButtonListeners();
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onCreate: " + e.getMessage());
+            Toast.makeText(this, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
         }
-
-        String userId = mAuth.getCurrentUser().getUid();
-        Log.d(TAG, "Current user ID: " + userId);
-        
-        userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-        Log.d(TAG, "Database reference path: " + userRef.toString());
-
-        // Test database connection
-        testDatabaseConnection();
-
-        // Initialize views
-        initializeViews();
-
-        // Setup profile photo selection
-        setupProfilePhotoSelection();
-
-        // Load user data from Firebase
-        loadUserData();
-
-        // Setup button click listeners
-        setupButtonListeners();
     }
 
     private void initializeViews() {
-        profilePhoto = findViewById(R.id.profilePhoto);
-        ImageView editPhoto = findViewById(R.id.editPhoto);
-        
-        // Set click listener for edit photo button
-        editPhoto.setOnClickListener(v -> showPhotoSelectionDialog());
+        try {
+            profilePhoto = findViewById(R.id.profilePhotoImageView);
+            ImageView editPhoto = findViewById(R.id.editPhoto);
+            
+            if (profilePhoto == null || editPhoto == null) {
+                throw new IllegalStateException("Required views not found in layout");
+            }
+            
+            // Set click listener for edit photo button
+            editPhoto.setOnClickListener(v -> showPhotoSelectionDialog());
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing views: " + e.getMessage());
+            Toast.makeText(this, "Error initializing profile views", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupProfilePhotoSelection() {
@@ -129,93 +143,189 @@ public class ProfileActivity extends BaseActivity {
 
     private void loadUserData() {
         Log.d(TAG, "Starting to load user data");
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "Data snapshot exists: " + dataSnapshot.exists());
-                if (!dataSnapshot.exists()) {
-                    Log.e(TAG, "No data found for user");
-                    // Create default user data
-                    createDefaultUserData();
-                    return;
-                }
+        try {
+            // Get current user
+            if (mAuth.getCurrentUser() == null) {
+                Log.e(TAG, "No user is currently signed in");
+                return;
+            }
 
-                User user = dataSnapshot.getValue(User.class);
-                Log.d(TAG, "User data retrieved: " + (user != null));
-                
-                if (user != null) {
+            String userId = mAuth.getCurrentUser().getUid();
+            Log.d(TAG, "Current user ID: " + userId);
+
+            // Get reference to user data
+            userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            Log.d(TAG, "Database reference path: " + userRef.toString());
+
+            // Add value event listener
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
                     try {
-                        // Update Personal Info
-                        TextView firstNameView = findViewById(R.id.firstName);
-                        TextView lastNameView = findViewById(R.id.lastName);
-                        TextView genderView = findViewById(R.id.gender);
-                        TextView ageView = findViewById(R.id.age);
-                        TextView dobView = findViewById(R.id.dateOfBirth);
-
-                        if (firstNameView != null) firstNameView.setText(user.getFirstName());
-                        if (lastNameView != null) lastNameView.setText(user.getLastName());
-                        if (genderView != null) genderView.setText(user.getGender());
-                        if (ageView != null) ageView.setText(String.valueOf(user.getAge()));
-                        if (dobView != null) dobView.setText(user.getDateOfBirth());
-
-                        // Update Health Stats
-                        TextView heightView = findViewById(R.id.height);
-                        TextView weightView = findViewById(R.id.weight);
-                        TextView bmiView = findViewById(R.id.bmi);
-                        TextView bloodPressureView = findViewById(R.id.bloodPressure);
-
-                        if (heightView != null) heightView.setText(user.getHeight() + " cm");
-                        if (weightView != null) weightView.setText(user.getWeight() + " kg");
-                        if (bmiView != null) bmiView.setText(String.valueOf(user.getBmi()));
-                        if (bloodPressureView != null) bloodPressureView.setText(user.getBloodPressure());
-
-                        // Load profile image if available
-                        if (user.getProfileImageUrl() != null && !user.getProfileImageUrl().isEmpty()) {
-                            Picasso.get()
-                                .load(user.getProfileImageUrl())
-                                .placeholder(R.drawable.default_profile)
-                                .error(R.drawable.default_profile)
-                                .into(profilePhoto);
-                        }
+                        Log.d(TAG, "Data snapshot exists: " + dataSnapshot.exists());
+                        Log.d(TAG, "Data snapshot value: " + dataSnapshot.getValue());
                         
-                        Log.d(TAG, "Successfully updated UI with user data");
+                        if (!dataSnapshot.exists()) {
+                            Log.e(TAG, "No data found for user");
+                            createDefaultUserData();
+                            return;
+                        }
+
+                        // Try to get user data
+                        User user = dataSnapshot.getValue(User.class);
+                        Log.d(TAG, "User data retrieved: " + (user != null));
+                        
+                        if (user != null) {
+                            // Log individual fields
+                            Log.d(TAG, "First Name: " + user.getFirstName());
+                            Log.d(TAG, "Last Name: " + user.getLastName());
+                            Log.d(TAG, "Date of Birth: " + user.getDateOfBirth());
+                            Log.d(TAG, "Age: " + user.getAge());
+                            Log.d(TAG, "Gender: " + user.getGender());
+                            
+                            updateUIWithUserData(user);
+                        } else {
+                            Log.e(TAG, "Failed to parse user data");
+                            Toast.makeText(ProfileActivity.this, 
+                                "Error loading profile data", 
+                                Toast.LENGTH_SHORT).show();
+                        }
                     } catch (Exception e) {
-                        Log.e(TAG, "Error updating UI: " + e.getMessage());
+                        Log.e(TAG, "Error in onDataChange: " + e.getMessage());
+                        e.printStackTrace();
                         Toast.makeText(ProfileActivity.this, 
-                            "Error displaying profile data", 
+                            "Error updating profile data: " + e.getMessage(), 
                             Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Log.e(TAG, "Failed to parse user data");
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, "Database error: " + databaseError.getMessage());
+                    Log.e(TAG, "Database error details: " + databaseError.getDetails());
                     Toast.makeText(ProfileActivity.this, 
-                        "Error loading profile data", 
+                        "Failed to load user data: " + databaseError.getMessage(), 
                         Toast.LENGTH_SHORT).show();
                 }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up data listener: " + e.getMessage());
+            e.printStackTrace();
+            Toast.makeText(this, "Error setting up profile data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateUIWithUserData(User user) {
+        try {
+            // Update Personal Info
+            TextView firstNameView = findViewById(R.id.firstNameTextView);
+            TextView lastNameView = findViewById(R.id.lastNameTextView);
+            TextView dobView = findViewById(R.id.dobTextView);
+            TextView ageView = findViewById(R.id.ageTextView);
+            TextView genderView = findViewById(R.id.genderTextView);
+
+            // Update Health Stats
+            TextView heightView = findViewById(R.id.heightTextView);
+            TextView weightView = findViewById(R.id.weightTextView);
+            TextView bloodPressureView = findViewById(R.id.bloodPressureTextView);
+            TextView bmiView = findViewById(R.id.bmiTextView);
+
+            // Set Personal Info
+            if (firstNameView != null) {
+                firstNameView.setText(user.getFirstName() != null ? user.getFirstName() : "");
+                Log.d(TAG, "First Name: " + user.getFirstName());
+            }
+            
+            if (lastNameView != null) {
+                lastNameView.setText(user.getLastName() != null ? user.getLastName() : "");
+                Log.d(TAG, "Last Name: " + user.getLastName());
+            }
+            
+            if (dobView != null) {
+                dobView.setText(user.getDateOfBirth() != null ? user.getDateOfBirth() : "");
+                Log.d(TAG, "Date of Birth: " + user.getDateOfBirth());
+            }
+            
+            if (ageView != null) {
+                ageView.setText(String.valueOf(user.getAge()));
+                Log.d(TAG, "Age: " + user.getAge());
+            }
+            
+            if (genderView != null) {
+                genderView.setText(user.getGender() != null ? user.getGender() : "");
+                Log.d(TAG, "Gender: " + user.getGender());
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Database error: " + databaseError.getMessage());
-                Toast.makeText(ProfileActivity.this, 
-                    "Failed to load user data: " + databaseError.getMessage(), 
-                    Toast.LENGTH_SHORT).show();
+            // Set Health Stats
+            if (heightView != null) {
+                heightView.setText(user.getHeight() + " cm");
+                Log.d(TAG, "Height: " + user.getHeight());
             }
-        });
+            
+            if (weightView != null) {
+                weightView.setText(user.getWeight() + " kg");
+                Log.d(TAG, "Weight: " + user.getWeight());
+            }
+            
+            if (bloodPressureView != null) {
+                bloodPressureView.setText(user.getBloodPressure() != null ? user.getBloodPressure() : "");
+                Log.d(TAG, "Blood Pressure: " + user.getBloodPressure());
+            }
+            
+            if (bmiView != null) {
+                bmiView.setText(calculateBMI(user.getHeight(), user.getWeight()));
+                Log.d(TAG, "BMI: " + calculateBMI(user.getHeight(), user.getWeight()));
+            }
+
+            // Load profile image if available
+            if (user.getProfileImageUrl() != null && !user.getProfileImageUrl().isEmpty() && profilePhoto != null) {
+                Picasso.get()
+                    .load(user.getProfileImageUrl())
+                    .placeholder(R.drawable.default_profile)
+                    .error(R.drawable.default_profile)
+                    .into(profilePhoto);
+            } else if (profilePhoto != null) {
+                // Set default profile image if no URL is available
+                profilePhoto.setImageResource(R.drawable.default_profile);
+            }
+            
+            Log.d(TAG, "Successfully updated UI with user data");
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating UI: " + e.getMessage());
+            Toast.makeText(this, "Error displaying profile data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String calculateBMI(int height, int weight) {
+        try {
+            if (height > 0 && weight > 0) {
+                double heightInMeters = height / 100.0;
+                double bmi = weight / (heightInMeters * heightInMeters);
+                return String.format("%.1f", bmi);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error calculating BMI: " + e.getMessage());
+        }
+        return "N/A";
     }
 
     private void createDefaultUserData() {
+        String userId = mAuth.getCurrentUser().getUid();
+        
         User defaultUser = new User(
-            "John",           // firstName
-            "Doe",           // lastName
-            "Male",          // gender
-            28,              // age
-            "1995-05-15",    // dateOfBirth
-            175f,            // height
-            70f,             // weight
-            22.9f,           // bmi
-            "120/80",        // bloodPressure
-            ""               // profileImageUrl
+            userId,          // uid
+            "New",          // firstName
+            "User"          // lastName
         );
+        
+        // Set additional default values
+        defaultUser.setDateOfBirth("");
+        defaultUser.setAge(0);
+        defaultUser.setGender("");
+        defaultUser.setHeight(0);
+        defaultUser.setWeight(0);
+        defaultUser.setBloodPressure("");
+        defaultUser.setProfileImageUrl("");
 
         userRef.setValue(defaultUser)
             .addOnSuccessListener(aVoid -> {
@@ -232,37 +342,27 @@ public class ProfileActivity extends BaseActivity {
             });
     }
 
-    private void testDatabaseConnection() {
-        userRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot snapshot = task.getResult();
-                Log.d(TAG, "Raw data from Firebase: " + snapshot.getValue());
-                
-                if (snapshot.exists()) {
-                    for (DataSnapshot child : snapshot.getChildren()) {
-                        Log.d(TAG, "Child: " + child.getKey() + " = " + child.getValue());
-                    }
-                } else {
-                    Log.e(TAG, "No data exists at this location");
-                }
-            } else {
-                Log.e(TAG, "Error getting data", task.getException());
-            }
-        });
-    }
-
     private void setupButtonListeners() {
-        MaterialButton editProfileButton = findViewById(R.id.editProfileButton);
-        MaterialButton accountSettingsButton = findViewById(R.id.accountSettingsButton);
+        try {
+            MaterialButton editProfileButton = findViewById(R.id.editProfileButton);
+            MaterialButton accountSettingsButton = findViewById(R.id.accountSettingsButton);
 
-        editProfileButton.setOnClickListener(v -> {
-            // TODO: Implement edit profile functionality
-            Toast.makeText(this, "Edit Profile functionality coming soon!", Toast.LENGTH_SHORT).show();
-        });
+            if (editProfileButton == null || accountSettingsButton == null) {
+                throw new IllegalStateException("Required buttons not found in layout");
+            }
 
-        accountSettingsButton.setOnClickListener(v -> {
-            // TODO: Implement account settings functionality
-            Toast.makeText(this, "Account Settings functionality coming soon!", Toast.LENGTH_SHORT).show();
-        });
+            editProfileButton.setOnClickListener(v -> {
+                // TODO: Implement edit profile functionality
+                Toast.makeText(this, "Edit Profile functionality coming soon!", Toast.LENGTH_SHORT).show();
+            });
+
+            accountSettingsButton.setOnClickListener(v -> {
+                // TODO: Implement account settings functionality
+                Toast.makeText(this, "Account Settings functionality coming soon!", Toast.LENGTH_SHORT).show();
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up button listeners: " + e.getMessage());
+            Toast.makeText(this, "Error setting up profile buttons", Toast.LENGTH_SHORT).show();
+        }
     }
 } 

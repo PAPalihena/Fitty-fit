@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-    android:repeatMode="restart"
+    android:repeatMode="reverse"
     android:repeatCount="infinite">
 
     <scale
@@ -10,12 +10,12 @@
         android:fromYScale="1.0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="1.1"
-        android:toYScale="1.1" />
+        android:toXScale="1.05"
+        android:toYScale="1.05" />
 
     <alpha
         android:duration="3000"
         android:fromAlpha="1.0"
-        android:toAlpha="0.8" />
+        android:toAlpha="0.95" />
 
 </set> 

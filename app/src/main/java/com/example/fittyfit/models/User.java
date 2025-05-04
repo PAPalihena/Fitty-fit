@@ -1,58 +1,36 @@
 package com.example.fittyfit.models;
 
 public class User {
-    private String firstName;
-    private String lastName;
-    private String gender;
+    private String uid;
     private int age;
-    private String dateOfBirth;
-    private float height;
-    private float weight;
-    private float bmi;
     private String bloodPressure;
+    private String dateOfBirth;
+    private String firstName;
+    private String gender;
+    private int height;
+    private String lastName;
     private String profileImageUrl;
+    private int weight;
 
-    // Default constructor required for Firebase
+    // Default constructor for Firebase
     public User() {
     }
 
-    public User(String firstName, String lastName, String gender, int age, String dateOfBirth,
-                float height, float weight, float bmi, String bloodPressure, String profileImageUrl) {
+    // Constructor for creating new user
+    public User(String uid, String firstName, String lastName) {
+        this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.gender = gender;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-        this.height = height;
-        this.weight = weight;
-        this.bmi = bmi;
-        this.bloodPressure = bloodPressure;
-        this.profileImageUrl = profileImageUrl;
+        this.profileImageUrl = "";
     }
 
     // Getters and Setters
-    public String getFirstName() {
-        return firstName;
+    public String getUid() {
+        return uid;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public int getAge() {
@@ -63,38 +41,6 @@ public class User {
         this.age = age;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public float getBmi() {
-        return bmi;
-    }
-
-    public void setBmi(float bmi) {
-        this.bmi = bmi;
-    }
-
     public String getBloodPressure() {
         return bloodPressure;
     }
@@ -103,11 +49,59 @@ public class User {
         this.bloodPressure = bloodPressure;
     }
 
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 } 

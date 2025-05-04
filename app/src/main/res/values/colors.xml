@@ -12,6 +12,8 @@
     <color name="orange">#FFFFA07A</color> <!-- Light Salmon -->
     <color name="light_orange">#FFFFE4E1</color> <!-- Misty Rose -->
     <color name="dark_orange">#FFFF8C69</color> <!-- Dark Salmon -->
+    <color name="darker_orange">#FFE67E5C</color> <!-- Even Darker Salmon -->
+    <color name="intense_orange">#FFFF7F50</color> <!-- Coral Orange -->
     <color name="primary_blue">#FF87CEEB</color> <!-- Sky Blue -->
     <color name="primary_green">#FF98FB98</color> <!-- Pale Green -->
     

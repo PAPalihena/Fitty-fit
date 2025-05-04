@@ -83,7 +83,8 @@ public class ChallengesActivity extends BaseActivity {
         });
 
         btnGroup.setOnClickListener(v -> {
-            // TODO: Launch create group challenge activity
+            Intent intent = new Intent(ChallengesActivity.this, CreateGroupChallenge.class);
+            startActivity(intent);
             hideMenu();
         });
     }
