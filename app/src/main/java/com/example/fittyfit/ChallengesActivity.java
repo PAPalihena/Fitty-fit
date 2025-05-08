@@ -78,7 +78,8 @@ public class ChallengesActivity extends BaseActivity {
         fab.setOnClickListener(v -> toggleMenu());
 
         btnPersonal.setOnClickListener(v -> {
-            // TODO: Launch create personal challenge activity
+            Intent intent = new Intent(ChallengesActivity.this, ChallengeTypeSelection.class);
+            startActivity(intent);
             hideMenu();
         });
 

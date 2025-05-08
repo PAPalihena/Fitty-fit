@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@drawable/homepage_bg">
 
     <include
         android:id="@+id/navigationBar"
@@ -33,128 +33,73 @@
                 android:textColor="#0c0d0d"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Progress Dashboard -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Health Tips Section -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeColor="@color/orange"
-                app:strokeWidth="1dp">
+                android:layout_marginBottom="24dp">
 
-                <LinearLayout
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/healthTipsViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/healthTipsTabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="3dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    app:tabMode="fixed"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/orange"
+                    app:tabSelectedTextColor="@color/orange"
+                    app:tabTextColor="@color/light_gray"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabPaddingStart="4dp"
+                    app:tabPaddingEnd="4dp"
+                    app:tabMinWidth="6dp"
+                    app:tabMaxWidth="16dp"
+                    app:tabBackground="@drawable/tab_selector"/>
+
+            </FrameLayout>
+
+            <!-- Today's Progress Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's Progress"
+                android:textColor="@color/intense_orange"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:clipToPadding="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/progressRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="8dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Today's Progress"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#0c0d0d"
-                        android:layout_marginBottom="16dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="3">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/waterProgress"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_marginBottom="8dp"
-                                app:trackColor="@color/light_gray"
-                                app:indicatorColor="@color/orange"
-                                app:indicatorSize="80dp"
-                                app:trackThickness="8dp"
-                                android:progress="75"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Water"
-                                android:textSize="14sp"
-                                android:textColor="#0c0d0d"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/caloriesProgress"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_marginBottom="8dp"
-                                app:trackColor="@color/light_gray"
-                                app:indicatorColor="@color/orange"
-                                app:indicatorSize="80dp"
-                                app:trackThickness="8dp"
-                                android:progress="60"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Calories"
-                                android:textSize="14sp"
-                                android:textColor="#0c0d0d"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/stepsProgress"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_marginBottom="8dp"
-                                app:trackColor="@color/light_gray"
-                                app:indicatorColor="@color/orange"
-                                app:indicatorSize="80dp"
-                                app:trackThickness="8dp"
-                                android:progress="85"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Steps"
-                                android:textSize="14sp"
-                                android:textColor="#0c0d0d"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
             <!-- Challenges Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
@@ -224,48 +169,6 @@
                             android:progress="75"/>
 
                     </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Health Tips Section -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:strokeColor="@color/orange"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Health Tips"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#0c0d0d"
-                        android:layout_marginBottom="16dp"/>
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/healthTipsTabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:tabMode="fixed"
-                        app:tabGravity="fill"/>
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/healthTipsViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="8dp"/>
 
                 </LinearLayout>
 

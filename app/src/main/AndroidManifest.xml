@@ -71,7 +71,18 @@
             android:name=".ChallengeChatActivity"
             android:exported="false"
             android:theme="@style/Theme.FittyFit.NoActionBar" />
-        <activity android:name=".CreateGroupChallenge" />
+        <activity 
+            android:name=".CreateGroupChallenge"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
+        <activity 
+            android:name=".ChallengeTypeSelection"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
+        <activity 
+            android:name=".CreatePersonalChallenge"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
     </application>
 
 </manifest>

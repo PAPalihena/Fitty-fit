@@ -26,18 +26,28 @@ class FirebaseDatabaseHelper {
                     userChallengesRef.child(challenge.createdBy)
                         .child(challengeId)
                         .setValue(true)
+                        .addOnSuccessListener {
+                            onComplete(true, challengeId)
+                        }
+                        .addOnFailureListener {
+                            onComplete(false, null)
+                        }
                 } else {
                     // For group challenges, add to all participants
-                    challenge.participants.forEach { userId ->
-                        userChallengesRef.child(userId)
-                            .child(challengeId)
-                            .setValue(true)
+                    val updates = challenge.participants.associate { userId ->
+                        "user_challenges/$userId/$challengeId" to true
                     }
+                    database.updateChildren(updates)
+                        .addOnSuccessListener {
+                            onComplete(true, challengeId)
+                        }
+                        .addOnFailureListener {
+                            onComplete(false, null)
+                        }
                 }
-                onComplete(true, challengeId)
             }
             .addOnFailureListener {
-                onComplete(false, it.message)
+                onComplete(false, null)
             }
     }
 
