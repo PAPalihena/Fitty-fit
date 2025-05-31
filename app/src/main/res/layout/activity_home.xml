@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:strokeColor="@color/orange"
                 app:strokeWidth="1dp">
@@ -112,63 +112,91 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Challenges"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#0c0d0d"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCreateChallenge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Create"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/orange"
+                            app:cornerRadius="20dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp"/>
+                    </LinearLayout>
+
+                    <!-- Personal Challenges Section -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Challenges"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:text="Personal Challenges"
+                        android:textSize="16sp"
                         android:textColor="#0c0d0d"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <include
+                        android:id="@+id/personalChallengeItem"
+                        layout="@layout/item_challenge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLoadMorePersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="View All Personal Challenges"
+                        android:textColor="@color/orange"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/orange"
+                        app:strokeWidth="1dp"
+                        app:cornerRadius="20dp"
                         android:layout_marginBottom="16dp"/>
 
-                    <LinearLayout
+                    <!-- Group Challenges Section -->
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="8dp">
+                        android:text="Group Challenges"
+                        android:textSize="16sp"
+                        android:textColor="#0c0d0d"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Personal Challenge"
-                            android:textSize="16sp"
-                            android:textColor="#0c0d0d"
-                            android:layout_marginBottom="4dp"/>
-
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/personalChallengeProgress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:trackColor="@color/light_gray"
-                            app:indicatorColor="@color/orange"
-                            app:trackThickness="8dp"
-                            android:progress="50"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <include
+                        android:id="@+id/groupChallengeItem"
+                        layout="@layout/item_challenge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="8dp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Group Challenge"
-                            android:textSize="16sp"
-                            android:textColor="#0c0d0d"
-                            android:layout_marginBottom="4dp"/>
-
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/groupChallengeProgress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:trackColor="@color/light_gray"
-                            app:indicatorColor="@color/orange"
-                            app:trackThickness="8dp"
-                            android:progress="75"/>
-
-                    </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLoadMoreGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="View All Group Challenges"
+                        android:textColor="@color/orange"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/orange"
+                        app:strokeWidth="1dp"
+                        app:cornerRadius="20dp"
+                        android:layout_marginBottom="8dp"/>
 
                 </LinearLayout>
 

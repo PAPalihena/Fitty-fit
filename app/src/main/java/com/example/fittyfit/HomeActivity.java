@@ -1,11 +1,13 @@
 package com.example.fittyfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.button.MaterialButton;
 
 import com.example.fittyfit.adapters.ProgressAdapter;
 import com.example.fittyfit.adapters.ProgressAdapter.ProgressItem;
@@ -105,11 +108,63 @@ public class HomeActivity extends BaseActivity {
         progressAdapter = new ProgressAdapter(progressItems);
         progressRecyclerView.setAdapter(progressAdapter);
 
-        // Update challenges
-        updateChallenges();
+        // Setup challenges
+        setupChallenges();
         
         // Simulate progress updates
         simulateProgressUpdates();
+    }
+
+    private void setupChallenges() {
+        // Setup Personal Challenge
+        View personalChallengeView = findViewById(R.id.personalChallengeItem);
+        TextView personalTitle = personalChallengeView.findViewById(R.id.challengeTitle);
+        TextView personalDescription = personalChallengeView.findViewById(R.id.challengeDescription);
+        TextView personalProgress = personalChallengeView.findViewById(R.id.challengeProgress);
+        LinearProgressIndicator personalProgressBar = personalChallengeView.findViewById(R.id.challengeProgressBar);
+
+        personalTitle.setText("30-Day Push-up Challenge");
+        personalDescription.setText("Complete 100 push-ups daily for 30 days to build upper body strength and endurance");
+        personalProgress.setText("15/30 days");
+        personalProgressBar.setProgress(50);
+
+        // Setup Group Challenge
+        View groupChallengeView = findViewById(R.id.groupChallengeItem);
+        TextView groupTitle = groupChallengeView.findViewById(R.id.challengeTitle);
+        TextView groupDescription = groupChallengeView.findViewById(R.id.challengeDescription);
+        TextView groupProgress = groupChallengeView.findViewById(R.id.challengeProgress);
+        TextView leaderInfo = groupChallengeView.findViewById(R.id.leaderInfo);
+        TextView prizeInfo = groupChallengeView.findViewById(R.id.prizeInfo);
+        LinearProgressIndicator groupProgressBar = groupChallengeView.findViewById(R.id.challengeProgressBar);
+
+        groupTitle.setText("Team Running Challenge");
+        groupDescription.setText("Run 100km as a team in 7 days. Work together to achieve the goal!");
+        groupProgress.setText("25/100 km");
+        leaderInfo.setText("🏆 John D. (45km)");
+        prizeInfo.setText("🎁 $500 Gift Card");
+        groupProgressBar.setProgress(25);
+
+        // Setup Load More buttons
+        MaterialButton btnLoadMorePersonal = findViewById(R.id.btnLoadMorePersonal);
+        MaterialButton btnLoadMoreGroup = findViewById(R.id.btnLoadMoreGroup);
+        MaterialButton btnCreateChallenge = findViewById(R.id.btnCreateChallenge);
+
+        btnLoadMorePersonal.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChallengesActivity.class);
+            intent.putExtra("challengeType", "personal");
+            startActivity(intent);
+        });
+
+        btnLoadMoreGroup.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChallengesActivity.class);
+            intent.putExtra("challengeType", "group");
+            startActivity(intent);
+        });
+
+        btnCreateChallenge.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChallengeTypeSelection.class);
+            startActivity(intent);
+        });
     }
 
     private void initializeAutoSwipe() {
@@ -139,18 +194,6 @@ public class HomeActivity extends BaseActivity {
     private void updateProgress(int position, int progress) {
         if (progressAdapter != null) {
             progressAdapter.updateProgress(position, progress);
-        }
-    }
-
-    private void updateChallenges() {
-        LinearProgressIndicator personalChallengeProgress = findViewById(R.id.personalChallengeProgress);
-        LinearProgressIndicator groupChallengeProgress = findViewById(R.id.groupChallengeProgress);
-        
-        if (personalChallengeProgress != null) {
-            personalChallengeProgress.setProgress(50);
-        }
-        if (groupChallengeProgress != null) {
-            groupChallengeProgress.setProgress(75);
         }
     }
 
