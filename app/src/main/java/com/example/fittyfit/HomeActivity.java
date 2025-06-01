@@ -38,6 +38,7 @@ public class HomeActivity extends BaseActivity {
     private RecyclerView progressRecyclerView;
     private ProgressAdapter progressAdapter;
     private List<ProgressItem> progressItems;
+    private boolean isActivityActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,15 @@ public class HomeActivity extends BaseActivity {
         TextView welcomeText = findViewById(R.id.welcomeText);
         welcomeText.setText("Welcome Back, Praveen!");
 
-        // Initialize RecyclerView
+        // Initialize RecyclerView with fixed size and layout
         progressRecyclerView = findViewById(R.id.progressRecyclerView);
+        progressRecyclerView.setHasFixedSize(true);
+        progressRecyclerView.setItemViewCacheSize(4); // Cache 4 items
+        progressRecyclerView.setDrawingCacheEnabled(true);
+        progressRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         progressRecyclerView.setLayoutManager(layoutManager);
-        progressRecyclerView.setHasFixedSize(true);
         
         // Add item decoration for spacing
         int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
@@ -85,10 +90,14 @@ public class HomeActivity extends BaseActivity {
         healthTips.add(new HealthTip("Diet", "Eat a balanced diet with plenty of fruits and vegetables", R.drawable.health_tip_4));
         healthTips.add(new HealthTip("Movement", "Take regular breaks from sitting", R.drawable.health_tip_5));
 
-        // Setup ViewPager2
+        // Setup ViewPager2 with optimizations
         healthTipsAdapter = new HealthTipsAdapter(this, healthTips);
         healthTipsViewPager.setAdapter(healthTipsAdapter);
-        healthTipsViewPager.setOffscreenPageLimit(1); // Optimize memory usage
+        healthTipsViewPager.setOffscreenPageLimit(1);
+        healthTipsViewPager.setPageTransformer((page, position) -> {
+            // Optional: Add page transformations for better UX
+            page.setAlpha(1 - Math.abs(position));
+        });
 
         // Setup TabLayout
         new TabLayoutMediator(healthTipsTabLayout, healthTipsViewPager,
@@ -118,81 +127,108 @@ public class HomeActivity extends BaseActivity {
     private void setupChallenges() {
         // Setup Personal Challenge
         View personalChallengeView = findViewById(R.id.personalChallengeItem);
-        TextView personalTitle = personalChallengeView.findViewById(R.id.challengeTitle);
-        TextView personalDescription = personalChallengeView.findViewById(R.id.challengeDescription);
-        TextView personalProgress = personalChallengeView.findViewById(R.id.challengeProgress);
-        LinearProgressIndicator personalProgressBar = personalChallengeView.findViewById(R.id.challengeProgressBar);
+        if (personalChallengeView != null) {
+            TextView personalTitle = personalChallengeView.findViewById(R.id.challengeTitle);
+            TextView personalDescription = personalChallengeView.findViewById(R.id.challengeDescription);
+            TextView personalProgress = personalChallengeView.findViewById(R.id.challengeProgress);
+            LinearProgressIndicator personalProgressBar = personalChallengeView.findViewById(R.id.challengeProgressBar);
 
-        personalTitle.setText("30-Day Push-up Challenge");
-        personalDescription.setText("Complete 100 push-ups daily for 30 days to build upper body strength and endurance");
-        personalProgress.setText("15/30 days");
-        personalProgressBar.setProgress(50);
+            if (personalTitle != null) personalTitle.setText("30-Day Push-up Challenge");
+            if (personalDescription != null) personalDescription.setText("Complete 100 push-ups daily for 30 days to build upper body strength and endurance");
+            if (personalProgress != null) personalProgress.setText("15/30 days");
+            if (personalProgressBar != null) personalProgressBar.setProgress(50);
+        }
 
         // Setup Group Challenge
         View groupChallengeView = findViewById(R.id.groupChallengeItem);
-        TextView groupTitle = groupChallengeView.findViewById(R.id.challengeTitle);
-        TextView groupDescription = groupChallengeView.findViewById(R.id.challengeDescription);
-        TextView groupProgress = groupChallengeView.findViewById(R.id.challengeProgress);
-        TextView leaderInfo = groupChallengeView.findViewById(R.id.leaderInfo);
-        TextView prizeInfo = groupChallengeView.findViewById(R.id.prizeInfo);
-        LinearProgressIndicator groupProgressBar = groupChallengeView.findViewById(R.id.challengeProgressBar);
+        if (groupChallengeView != null) {
+            TextView groupTitle = groupChallengeView.findViewById(R.id.challengeTitle);
+            TextView groupDescription = groupChallengeView.findViewById(R.id.challengeDescription);
+            TextView groupProgress = groupChallengeView.findViewById(R.id.challengeProgress);
+            TextView leaderInfo = groupChallengeView.findViewById(R.id.leaderInfo);
+            TextView prizeInfo = groupChallengeView.findViewById(R.id.prizeInfo);
+            LinearProgressIndicator groupProgressBar = groupChallengeView.findViewById(R.id.challengeProgressBar);
 
-        groupTitle.setText("Team Running Challenge");
-        groupDescription.setText("Run 100km as a team in 7 days. Work together to achieve the goal!");
-        groupProgress.setText("25/100 km");
-        leaderInfo.setText("🏆 John D. (45km)");
-        prizeInfo.setText("🎁 $500 Gift Card");
-        groupProgressBar.setProgress(25);
+            if (groupTitle != null) groupTitle.setText("Team Running Challenge");
+            if (groupDescription != null) groupDescription.setText("Run 100km as a team in 7 days. Work together to achieve the goal!");
+            if (groupProgress != null) groupProgress.setText("25/100 km");
+            if (leaderInfo != null) leaderInfo.setText("🏆 John D. (45km)");
+            if (prizeInfo != null) prizeInfo.setText("🎁 $500 Gift Card");
+            if (groupProgressBar != null) groupProgressBar.setProgress(25);
+        }
 
-        // Setup Load More buttons
+        // Setup buttons with null checks
         MaterialButton btnLoadMorePersonal = findViewById(R.id.btnLoadMorePersonal);
         MaterialButton btnLoadMoreGroup = findViewById(R.id.btnLoadMoreGroup);
-        MaterialButton btnCreateChallenge = findViewById(R.id.btnCreateChallenge);
+        MaterialButton btnCreatePersonalChallenge = findViewById(R.id.btnCreatePersonalChallenge);
+        MaterialButton btnCreateGroupChallenge = findViewById(R.id.btnCreateGroupChallenge);
 
-        btnLoadMorePersonal.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ChallengesActivity.class);
-            intent.putExtra("challengeType", "personal");
-            startActivity(intent);
-        });
+        if (btnLoadMorePersonal != null) {
+            btnLoadMorePersonal.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ChallengesActivity.class);
+                intent.putExtra("challengeType", "personal");
+                startActivity(intent);
+            });
+        }
 
-        btnLoadMoreGroup.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ChallengesActivity.class);
-            intent.putExtra("challengeType", "group");
-            startActivity(intent);
-        });
+        if (btnLoadMoreGroup != null) {
+            btnLoadMoreGroup.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ChallengesActivity.class);
+                intent.putExtra("challengeType", "group");
+                startActivity(intent);
+            });
+        }
 
-        btnCreateChallenge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ChallengeTypeSelection.class);
-            startActivity(intent);
-        });
+        if (btnCreatePersonalChallenge != null) {
+            btnCreatePersonalChallenge.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ChallengeTypeSelection.class);
+                startActivity(intent);
+            });
+        }
+
+        if (btnCreateGroupChallenge != null) {
+            btnCreateGroupChallenge.setOnClickListener(v -> {
+                Intent intent = new Intent(this, CreateGroupChallenge.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void initializeAutoSwipe() {
-        autoSwipeHandler = new Handler(Looper.getMainLooper());
-        autoSwipeRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (healthTipsViewPager != null && healthTips != null && !healthTips.isEmpty()) {
-                    int currentItem = healthTipsViewPager.getCurrentItem();
-                    int nextItem = (currentItem + 1) % healthTips.size();
-                    healthTipsViewPager.setCurrentItem(nextItem, true);
-                    autoSwipeHandler.postDelayed(this, SWIPE_INTERVAL);
+        if (autoSwipeHandler == null) {
+            autoSwipeHandler = new Handler(Looper.getMainLooper());
+        }
+        
+        if (autoSwipeRunnable == null) {
+            autoSwipeRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (isActivityActive && healthTipsViewPager != null && healthTips != null && !healthTips.isEmpty()) {
+                        int currentItem = healthTipsViewPager.getCurrentItem();
+                        int nextItem = (currentItem + 1) % healthTips.size();
+                        healthTipsViewPager.setCurrentItem(nextItem, true);
+                        autoSwipeHandler.postDelayed(this, SWIPE_INTERVAL);
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 
     private void simulateProgressUpdates() {
-        new Handler().postDelayed(() -> {
-            updateProgress(0, 65); // Steps
-            updateProgress(1, 45); // Calories
-            updateProgress(2, 30); // Distance
-            updateProgress(3, 75); // Workout Time
-        }, 1000);
+        if (autoSwipeHandler != null) {
+            autoSwipeHandler.postDelayed(() -> {
+                if (isActivityActive) {
+                    updateProgress(0, 65); // Steps
+                    updateProgress(1, 45); // Calories
+                    updateProgress(2, 30); // Distance
+                    updateProgress(3, 75); // Workout Time
+                }
+            }, 1000);
+        }
     }
 
     private void updateProgress(int position, int progress) {
-        if (progressAdapter != null) {
+        if (progressAdapter != null && position >= 0 && position < progressItems.size()) {
             progressAdapter.updateProgress(position, progress);
         }
     }
@@ -200,17 +236,20 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isActivityActive = true;
         startAutoSwipe();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        isActivityActive = false;
         stopAutoSwipe();
     }
 
     private void startAutoSwipe() {
-        if (autoSwipeHandler != null && autoSwipeRunnable != null) {
+        if (autoSwipeHandler != null && autoSwipeRunnable != null && isActivityActive) {
+            autoSwipeHandler.removeCallbacks(autoSwipeRunnable);
             autoSwipeHandler.postDelayed(autoSwipeRunnable, SWIPE_INTERVAL);
         }
     }
@@ -224,9 +263,28 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isActivityActive = false;
         stopAutoSwipe();
         if (autoSwipeHandler != null) {
             autoSwipeHandler.removeCallbacksAndMessages(null);
+            autoSwipeHandler = null;
+        }
+        autoSwipeRunnable = null;
+        
+        // Clear adapters and lists
+        if (healthTipsAdapter != null) {
+            healthTipsAdapter = null;
+        }
+        if (progressAdapter != null) {
+            progressAdapter = null;
+        }
+        if (healthTips != null) {
+            healthTips.clear();
+            healthTips = null;
+        }
+        if (progressItems != null) {
+            progressItems.clear();
+            progressItems = null;
         }
     }
 }

@@ -127,9 +127,27 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="#0c0d0d"/>
+                    </LinearLayout>
+
+                    <!-- Personal Challenges Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Personal Challenges"
+                            android:textSize="16sp"
+                            android:textColor="#0c0d0d"
+                            android:textStyle="bold"/>
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnCreateChallenge"
+                            android:id="@+id/btnCreatePersonalChallenge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Create"
@@ -139,16 +157,6 @@
                             android:paddingHorizontal="16dp"
                             android:paddingVertical="8dp"/>
                     </LinearLayout>
-
-                    <!-- Personal Challenges Section -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Personal Challenges"
-                        android:textSize="16sp"
-                        android:textColor="#0c0d0d"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
 
                     <include
                         android:id="@+id/personalChallengeItem"
@@ -170,14 +178,33 @@
                         android:layout_marginBottom="16dp"/>
 
                     <!-- Group Challenges Section -->
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Group Challenges"
-                        android:textSize="16sp"
-                        android:textColor="#0c0d0d"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Group Challenges"
+                            android:textSize="16sp"
+                            android:textColor="#0c0d0d"
+                            android:textStyle="bold"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCreateGroupChallenge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Create"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/orange"
+                            app:cornerRadius="20dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp"/>
+                    </LinearLayout>
 
                     <include
                         android:id="@+id/groupChallengeItem"
