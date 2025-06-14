@@ -169,85 +169,120 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Alice W.",
             "Just finished a 5k run! Feeling great! #fitness",
-            R.drawable.dummy_post_image_1
+            R.drawable.dummy_post_image_1,
+            "2 hours ago",
+            45,
+            12,
+            5,
+            R.drawable.profile_alice
         ));
 
-        // Post 2 - Without image
+        // Post 2 - With image
         dummyPosts.add(new CommunityPost(
             "Bob M.",
             "Tried a new healthy recipe today. Delicious and nutritious!",
-            "1 hour ago",
-            15,
+            R.drawable.dummy_post_image_2,
+            "3 hours ago",
+            28,
+            8,
             3,
-            1
+            R.drawable.profile_bob
         ));
 
         // Post 3 - With image
         dummyPosts.add(new CommunityPost(
             "Charlie P.",
             "Yoga session done. So relaxing.",
-            R.drawable.dummy_post_image_2
+            R.drawable.dummy_post_image_3,
+            "4 hours ago",
+            32,
+            15,
+            7,
+            R.drawable.profile_charlie
         ));
 
-        // Post 4 - Without image
+        // Post 4 - With image
         dummyPosts.add(new CommunityPost(
             "David W.",
             "Hit my step goal for the 5th day in a row! #consistency",
-            "2 hours ago",
-            28,
-            7,
-            2
+            R.drawable.dummy_post_image_4,
+            "5 hours ago",
+            56,
+            23,
+            9,
+            R.drawable.profile_david
         ));
 
         // Post 5 - With image
         dummyPosts.add(new CommunityPost(
             "Emma W.",
             "New personal best in deadlift! 💪",
-            R.drawable.dummy_post_image_3
+            R.drawable.dummy_post_image_5,
+            "6 hours ago",
+            78,
+            34,
+            12,
+            R.drawable.profile_emma
         ));
 
-        // Post 6 - Without image
+        // Post 6 - With image
         dummyPosts.add(new CommunityPost(
             "Frank H.",
             "Morning meditation session. Starting the day right!",
-            "3 hours ago",
-            19,
-            4,
-            1
+            R.drawable.dummy_post_image_6,
+            "7 hours ago",
+            42,
+            18,
+            6,
+            R.drawable.profile_frank
         ));
 
         // Post 7 - With image
         dummyPosts.add(new CommunityPost(
             "Grace D.",
             "Beautiful sunset run today!",
-            R.drawable.dummy_post_image_4
+            R.drawable.dummy_post_image_7,
+            "8 hours ago",
+            65,
+            27,
+            11,
+            R.drawable.profile_grace
         ));
 
-        // Post 8 - Without image
+        // Post 8 - With image
         dummyPosts.add(new CommunityPost(
             "Henry P.",
             "Just joined a new cycling group. The community is amazing!",
-            "4 hours ago",
-            32,
-            8,
-            3
+            R.drawable.dummy_post_image_8,
+            "9 hours ago",
+            38,
+            14,
+            4,
+            R.drawable.profile_henry
         ));
 
         // Post 9 - With image
         dummyPosts.add(new CommunityPost(
             "Ivy R.",
             "Meal prep Sunday! Healthy eating is key.",
-            R.drawable.dummy_post_image_5
+            R.drawable.dummy_post_image_9,
+            "10 hours ago",
+            51,
+            19,
+            8,
+            R.drawable.profile_ivy
         ));
 
-        // Post 10 - Without image
+        // Post 10 - With image
         dummyPosts.add(new CommunityPost(
             "Jack D.",
             "Recovery day with some light stretching. Taking care of your body is crucial!",
-            "5 hours ago",
-            24,
-            6,
-            2
+            R.drawable.dummy_post_image_10,
+            "11 hours ago",
+            47,
+            21,
+            7,
+            R.drawable.profile_jack
         ));
 
         communityAdapter = new CommunityAdapter(this, dummyPosts);

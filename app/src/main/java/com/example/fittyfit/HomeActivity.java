@@ -1,9 +1,13 @@
 package com.example.fittyfit;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +56,35 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initializeViews() {
-        // Set welcome message
+        // Set welcome message with different styles
         TextView welcomeText = findViewById(R.id.welcomeText);
-        welcomeText.setText("Welcome Back, Praveen!");
+        String fullText = "Welcome Back, Praveen!";
+        SpannableString spannableString = new SpannableString(fullText);
+        
+        // Set opacity for "Welcome Back, " using color with alpha
+        int originalColor = Color.parseColor("#0c0d0d"); // Get the original color
+        int transparentColor = Color.argb(
+            (int)(255 * 0.5f), // 50% opacity
+            Color.red(originalColor),
+            Color.green(originalColor),
+            Color.blue(originalColor)
+        );
+        spannableString.setSpan(
+            new ForegroundColorSpan(transparentColor),
+            0,                    // start index
+            13,                   // end index (length of "Welcome Back, ")
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+        
+        // Set brown color for "Praveen"
+        spannableString.setSpan(
+            new ForegroundColorSpan(Color.parseColor("#8B4513")), // Brown color
+            14,                    // start index
+            21,                    // end index (length of "Praveen")
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+        
+        welcomeText.setText(spannableString);
 
         // Initialize RecyclerView with fixed size and layout
         progressRecyclerView = findViewById(R.id.progressRecyclerView);

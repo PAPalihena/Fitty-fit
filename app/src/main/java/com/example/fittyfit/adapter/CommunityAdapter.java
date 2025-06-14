@@ -41,6 +41,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Post
         holder.commentCount.setText(String.valueOf(post.getComments()));
         holder.shareCount.setText(String.valueOf(post.getShares()));
 
+        // Set profile image
+        holder.userProfileImage.setImageResource(post.getProfileImageResId());
+
         // Handle post image
         if (post.getImageResId() != 0) {
             holder.postImage.setImageResource(post.getImageResId());

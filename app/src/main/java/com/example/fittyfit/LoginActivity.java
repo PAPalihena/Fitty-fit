@@ -20,6 +20,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 9001;
@@ -111,9 +113,28 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, proceed to registration
-                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                            finish();
+                            // Check if user exists in database
+                            String userId = mAuth.getCurrentUser().getUid();
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+                            
+                            userRef.get().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    if (task1.getResult().exists()) {
+                                        // User exists, go to HomeActivity
+                                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                        finish();
+                                    } else {
+                                        // User doesn't exist, go to RegisterActivity
+                                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                                        finish();
+                                    }
+                                } else {
+                                    // Error checking user existence
+                                    Toast.makeText(LoginActivity.this, 
+                                        "Error checking user data: " + task1.getException().getMessage(), 
+                                        Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             String errorMessage = "Authentication failed";
                             if (task.getException() != null) {
