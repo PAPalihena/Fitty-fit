@@ -18,7 +18,9 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Fit Community"
-                            android:textColor="@color/profile_text_primary"
+                            android:textColor="#CCFF7F50"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -64,21 +66,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginBottom="16dp"
-                    android:clipToPadding="false"
-                    android:paddingBottom="80dp" />
+                    android:clipToPadding="false"/>
 
-                <!-- Add Post FAB -->
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabAddPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_margin="16dp"
-                    android:contentDescription="Add new post"
-                    android:src="@drawable/ic_add"
-                    app:backgroundTint="@color/profile_primary"
-                    app:tint="@color/profile_card_background" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
+
+    <!-- Add Post FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Add new post"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/profile_primary"
+        app:tint="@color/profile_card_background"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout> 
