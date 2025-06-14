@@ -181,7 +181,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Bob M.",
             "Tried a new healthy recipe today. Delicious and nutritious!",
-            R.drawable.dummy_post_image_2,
+            R.drawable.dummy_post_image_5,
             "3 hours ago",
             28,
             8,
@@ -193,7 +193,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Charlie P.",
             "Yoga session done. So relaxing.",
-            R.drawable.dummy_post_image_3,
+            R.drawable.dummy_post_image_2,
             "4 hours ago",
             32,
             15,
@@ -205,7 +205,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "David W.",
             "Hit my step goal for the 5th day in a row! #consistency",
-            R.drawable.dummy_post_image_4,
+            R.drawable.dummy_post_image_7,
             "5 hours ago",
             56,
             23,
@@ -217,7 +217,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Emma W.",
             "New personal best in deadlift! 💪",
-            R.drawable.dummy_post_image_5,
+            R.drawable.dummy_post_image_3,
             "6 hours ago",
             78,
             34,
@@ -229,7 +229,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Frank H.",
             "Morning meditation session. Starting the day right!",
-            R.drawable.dummy_post_image_6,
+            R.drawable.dummy_post_image_8,
             "7 hours ago",
             42,
             18,
@@ -241,7 +241,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Grace D.",
             "Beautiful sunset run today!",
-            R.drawable.dummy_post_image_7,
+            R.drawable.dummy_post_image_4,
             "8 hours ago",
             65,
             27,
@@ -253,7 +253,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Henry P.",
             "Just joined a new cycling group. The community is amazing!",
-            R.drawable.dummy_post_image_8,
+            R.drawable.dummy_post_image_9,
             "9 hours ago",
             38,
             14,
@@ -265,7 +265,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Ivy R.",
             "Meal prep Sunday! Healthy eating is key.",
-            R.drawable.dummy_post_image_9,
+            R.drawable.dummy_post_image_10,
             "10 hours ago",
             51,
             19,
@@ -277,7 +277,7 @@ public class CommunityActivity extends BaseActivity {
         dummyPosts.add(new CommunityPost(
             "Jack D.",
             "Recovery day with some light stretching. Taking care of your body is crucial!",
-            R.drawable.dummy_post_image_10,
+            R.drawable.dummy_post_image_11,
             "11 hours ago",
             47,
             21,
