@@ -83,6 +83,10 @@
             android:name=".CreatePersonalChallenge"
             android:exported="false"
             android:theme="@style/Theme.FittyFit.NoActionBar" />
+        <activity 
+            android:name=".GroupChallengeDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FittyFit.NoActionBar" />
     </application>
 
 </manifest>

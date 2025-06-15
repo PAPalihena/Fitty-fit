@@ -9,7 +9,25 @@ data class Challenge(
     val type: String = "", // "personal" or "group"
     val startDate: String = "",
     val endDate: String = "",
-    val participants: List<String> = listOf(), // List of user IDs for group challenges
+    val participants: Map<String, Map<String, Any>> = mapOf(), // Map of participant data
     val createdBy: String = "", // User ID of the creator
-    val createdAt: Long = System.currentTimeMillis()
-) 
+    val createdAt: Long = System.currentTimeMillis(),
+    val prize: String = "", // Prize for group challenges
+    val status: String = "active", // active, completed, cancelled
+    val totalParticipants: Int = 0 // Total number of participants for group challenges
+) {
+    fun getLeadingParticipant(): String {
+        return participants.entries
+            .filter { (_, data) -> data["isLeader"] == true }
+            .map { (_, data) -> data["name"] as? String ?: "" }
+            .firstOrNull() ?: ""
+    }
+
+    fun getPrizeType(): String {
+        return prize.split(" - ").firstOrNull() ?: ""
+    }
+
+    fun getPrizeValue(): String {
+        return prize.split(" - ").getOrNull(1) ?: ""
+    }
+} 

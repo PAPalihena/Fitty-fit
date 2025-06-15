@@ -2,165 +2,116 @@ package com.example.fittyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.google.firebase.auth.FirebaseAuth;
-import com.example.fittyfit.models.Challenge;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.fittyfit.utils.FirebaseDatabaseHelper;
+import com.example.fittyfit.models.Challenge;
 import java.util.List;
+import java.util.Map;
 
 public class ChallengesActivity extends BaseActivity {
-    private LinearProgressIndicator[] personalChallengeProgress;
-    private LinearProgressIndicator[] groupChallengeProgress;
-    private FirebaseDatabaseHelper firebaseHelper;
-    private String currentUserId;
-    private View challengeOptionsMenu;
-    private boolean isMenuVisible = false;
+    private FirebaseDatabaseHelper firebaseDatabaseHelper;
+    private static final String TAG = "ChallengesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
 
+        // Initialize Firebase helper
+        firebaseDatabaseHelper = new FirebaseDatabaseHelper();
+
         // Setup navigation bar
         setupNavigationBar();
 
-        // Initialize Firebase
-        firebaseHelper = new FirebaseDatabaseHelper();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            finish();
-            return;
-        }
-        currentUserId = auth.getCurrentUser().getUid();
-
-        // Initialize views
-        initializeViews();
-
         // Load challenges
         loadChallenges();
-
-        // Setup FAB and menu
-        setupFloatingActionButton();
-    }
-
-    private void initializeViews() {
-        // Initialize progress indicators arrays
-        personalChallengeProgress = new LinearProgressIndicator[] {
-            findViewById(R.id.personalChallengeProgress1),
-            findViewById(R.id.personalChallengeProgress2),
-            findViewById(R.id.personalChallengeProgress3)
-        };
-
-        groupChallengeProgress = new LinearProgressIndicator[] {
-            findViewById(R.id.groupChallengeProgress1),
-            findViewById(R.id.groupChallengeProgress2),
-            findViewById(R.id.groupChallengeProgress3)
-        };
-
-        // Set level descriptions
-        ((TextView) findViewById(R.id.personalLevelDesc)).setText("Fitness Warrior");
-        ((TextView) findViewById(R.id.groupLevelDesc)).setText("Team Player");
-
-        // Initialize menu
-        challengeOptionsMenu = findViewById(R.id.challengeOptionsMenu);
-    }
-
-    private void setupFloatingActionButton() {
-        FloatingActionButton fab = findViewById(R.id.fabCreateChallenge);
-        TextView btnPersonal = findViewById(R.id.btnCreatePersonalChallenge);
-        TextView btnGroup = findViewById(R.id.btnCreateGroupChallenge);
-
-        fab.setOnClickListener(v -> toggleMenu());
-
-        btnPersonal.setOnClickListener(v -> {
-            Intent intent = new Intent(ChallengesActivity.this, ChallengeTypeSelection.class);
-            startActivity(intent);
-            hideMenu();
-        });
-
-        btnGroup.setOnClickListener(v -> {
-            Intent intent = new Intent(ChallengesActivity.this, CreateGroupChallenge.class);
-            startActivity(intent);
-            hideMenu();
-        });
-    }
-
-    private void toggleMenu() {
-        if (isMenuVisible) {
-            hideMenu();
-        } else {
-            showMenu();
-        }
-    }
-
-    private void showMenu() {
-        challengeOptionsMenu.setVisibility(View.VISIBLE);
-        Animation slideUp = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        challengeOptionsMenu.startAnimation(slideUp);
-        isMenuVisible = true;
-    }
-
-    private void hideMenu() {
-        Animation slideDown = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-        slideDown.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                challengeOptionsMenu.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-        challengeOptionsMenu.startAnimation(slideDown);
-        isMenuVisible = false;
     }
 
     private void loadChallenges() {
         // Load personal challenges
-        firebaseHelper.getUserChallenges(currentUserId, challenges -> {
-            int personalIndex = 0;
-            int groupIndex = 0;
-
-            for (Challenge challenge : challenges) {
-                if (challenge.getType().equals("personal") && personalIndex < personalChallengeProgress.length) {
-                    updateChallengeCard(
-                        personalIndex,
-                        challenge,
-                        personalChallengeProgress,
-                        new int[] {R.id.personalChallengeDesc1, R.id.personalChallengeDesc2, R.id.personalChallengeDesc3}
-                    );
-                    personalIndex++;
-                } else if (challenge.getType().equals("group") && groupIndex < groupChallengeProgress.length) {
-                    updateChallengeCard(
-                        groupIndex,
-                        challenge,
-                        groupChallengeProgress,
-                        new int[] {R.id.groupChallengeDesc1, R.id.groupChallengeDesc2, R.id.groupChallengeDesc3}
-                    );
-                    groupIndex++;
-                }
+        firebaseDatabaseHelper.getPersonalChallenges(new FirebaseDatabaseHelper.ChallengesCallback() {
+            @Override
+            public void onChallengesLoaded(List<Challenge> challenges) {
+                runOnUiThread(() -> {
+                    LinearLayout container = findViewById(R.id.personalChallengesContainer);
+                    if (container != null) {
+                        container.removeAllViews();
+                        for (Challenge challenge : challenges) {
+                            View challengeCard = getLayoutInflater().inflate(R.layout.item_personal_challenge, container, false);
+                            
+                            TextView descView = challengeCard.findViewById(R.id.personalChallengeDesc);
+                            ProgressBar progressBar = challengeCard.findViewById(R.id.personalChallengeProgress);
+                            TextView progressText = challengeCard.findViewById(R.id.personalChallengeProgressText);
+                            
+                            if (descView != null) descView.setText(challenge.getDescription());
+                            if (progressBar != null) progressBar.setProgress(challenge.getProgress());
+                            if (progressText != null) progressText.setText(challenge.getProgress() + "%");
+                            
+                            container.addView(challengeCard);
+                        }
+                    }
+                });
             }
-            return kotlin.Unit.INSTANCE;
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Error loading personal challenges: " + error);
+            }
         });
-    }
 
-    private void updateChallengeCard(int index, Challenge challenge, LinearProgressIndicator[] progressBars, int[] descIds) {
-        if (index < progressBars.length && index < descIds.length) {
-            TextView descView = findViewById(descIds[index]);
-            if (descView != null) {
-                descView.setText(challenge.getTitle());
+        // Load group challenges
+        firebaseDatabaseHelper.getGroupChallenges(new FirebaseDatabaseHelper.ChallengesCallback() {
+            @Override
+            public void onChallengesLoaded(List<Challenge> challenges) {
+                runOnUiThread(() -> {
+                    LinearLayout container = findViewById(R.id.groupChallengesContainer);
+                    if (container != null) {
+                        container.removeAllViews();
+                        for (Challenge challenge : challenges) {
+                            View challengeCard = getLayoutInflater().inflate(R.layout.item_group_challenge, container, false);
+                            
+                            TextView descView = challengeCard.findViewById(R.id.groupChallengeDesc);
+                            ProgressBar progressBar = challengeCard.findViewById(R.id.groupChallengeProgress);
+                            TextView progressText = challengeCard.findViewById(R.id.groupChallengeProgressText);
+                            TextView leaderView = challengeCard.findViewById(R.id.groupChallengeLeader);
+                            TextView prizeView = challengeCard.findViewById(R.id.groupChallengePrize);
+                            
+                            if (descView != null) descView.setText(challenge.getDescription());
+                            if (progressBar != null) progressBar.setProgress(challenge.getProgress());
+                            if (progressText != null) progressText.setText(challenge.getProgress() + "%");
+                            
+                            // Get the leading participant
+                            String leadingParticipant = challenge.getLeadingParticipant();
+                            if (leaderView != null) {
+                                leaderView.setText(leadingParticipant.isEmpty() ? "No leader yet" : "Leading: " + leadingParticipant);
+                            }
+                            
+                            if (prizeView != null) {
+                                prizeView.setText(challenge.getPrize());
+                            }
+                            
+                            // Set click listener for the challenge card
+                            challengeCard.setOnClickListener(v -> {
+                                Intent intent = new Intent(ChallengesActivity.this, GroupChallengeDetailsActivity.class);
+                                intent.putExtra("challenge_id", challenge.getId());
+                                startActivity(intent);
+                            });
+                            
+                            container.addView(challengeCard);
+                        }
+                    }
+                });
             }
-            if (progressBars[index] != null) {
-                progressBars[index].setProgress(challenge.getProgress());
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Error loading group challenges: " + error);
             }
-        }
+        });
     }
 } 

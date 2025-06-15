@@ -11,8 +11,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.fittyfit.models.Challenge;
 import com.example.fittyfit.utils.FirebaseDatabaseHelper;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import kotlin.Unit;
 
 public class CreatePersonalChallenge extends BaseActivity {
     private TextInputEditText durationInput;
@@ -63,31 +64,15 @@ public class CreatePersonalChallenge extends BaseActivity {
     }
 
     private void setupChallengeTypeImage() {
-        // Set image based on challenge type
-        int imageResource;
-        switch (selectedChallengeType.toLowerCase()) {
-            case "running":
-                imageResource = R.drawable.running_challenge;
-                break;
-            case "cycling":
-                imageResource = R.drawable.cycling_challenge;
-                break;
-            case "swimming":
-                imageResource = R.drawable.swimming_challenge;
-                break;
-            case "weightlifting":
-                imageResource = R.drawable.weightlifting_challenge;
-                break;
-            case "yoga":
-                imageResource = R.drawable.yoga_challenge;
-                break;
-            case "hiit":
-                imageResource = R.drawable.hiit_challenge;
-                break;
-            default:
-                imageResource = R.drawable.default_challenge;
+        // Set appropriate image based on challenge type
+        int imageResource = getResources().getIdentifier(
+            "ic_" + selectedChallengeType.toLowerCase(),
+            "drawable",
+            getPackageName()
+        );
+        if (imageResource != 0) {
+            challengeTypeImage.setImageResource(imageResource);
         }
-        challengeTypeImage.setImageResource(imageResource);
     }
 
     private void setupClickListeners() {
@@ -103,6 +88,17 @@ public class CreatePersonalChallenge extends BaseActivity {
         }
 
         String userId = auth.getCurrentUser().getUid();
+        
+        // Create participant data for the creator
+        Map<String, Object> participantData = new HashMap<>();
+        participantData.put("name", auth.getCurrentUser().getDisplayName());
+        participantData.put("isLeader", true);
+        participantData.put("progress", 0);
+        
+        // Create participants map with the creator as the only participant
+        Map<String, Map<String, Object>> participants = new HashMap<>();
+        participants.put(userId, participantData);
+
         Challenge challenge = new Challenge(
             "", // ID will be set by Firebase
             selectedChallengeType + " Challenge",
@@ -112,29 +108,24 @@ public class CreatePersonalChallenge extends BaseActivity {
             "personal",
             String.valueOf(System.currentTimeMillis()),
             "", // End date will be calculated based on duration
-            Arrays.asList(userId),
+            participants,
             userId,
-            System.currentTimeMillis()
+            System.currentTimeMillis(),
+            "", // No prize for personal challenges
+            "active", // status
+            1 // totalParticipants (just the creator)
         );
 
-        firebaseHelper.saveChallenge(challenge, new kotlin.jvm.functions.Function2<Boolean, String, kotlin.Unit>() {
-            @Override
-            public kotlin.Unit invoke(Boolean success, String challengeId) {
-                if (success && challengeId != null) {
-                    Toast.makeText(CreatePersonalChallenge.this, 
-                        "Personal challenge created successfully!", Toast.LENGTH_SHORT).show();
-                    
-                    // Navigate to challenge details
-                    Intent intent = new Intent(CreatePersonalChallenge.this, ChallengeDetailsActivity.class);
-                    intent.putExtra("challenge_id", challengeId);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(CreatePersonalChallenge.this, 
-                        "Error creating challenge", Toast.LENGTH_SHORT).show();
-                }
-                return kotlin.Unit.INSTANCE;
+        firebaseHelper.saveChallenge(challenge, (success, challengeId) -> {
+            if (success) {
+                Toast.makeText(CreatePersonalChallenge.this, 
+                    "Challenge created successfully!", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(CreatePersonalChallenge.this, 
+                    "Error creating challenge", Toast.LENGTH_SHORT).show();
             }
+            return Unit.INSTANCE;
         });
     }
 } 
