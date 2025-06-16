@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Navigation Bar -->
+        <include
+            android:id="@+id/navigationBar"
+            layout="@layout/navigation_bar"/>
+
+        <!-- Content Container -->
+        <FrameLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- Notification Panel -->
+    <com.example.fittyfit.views.NotificationPanelView
+        android:id="@+id/notificationPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout> 

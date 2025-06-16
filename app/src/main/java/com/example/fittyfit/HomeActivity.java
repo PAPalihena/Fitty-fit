@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import com.google.android.material.button.MaterialButton;
 
 import com.example.fittyfit.adapters.ProgressAdapter;
 import com.example.fittyfit.adapters.ProgressAdapter.ProgressItem;
+import com.example.fittyfit.views.NotificationPanelView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +45,23 @@ public class HomeActivity extends BaseActivity {
     private ProgressAdapter progressAdapter;
     private List<ProgressItem> progressItems;
     private boolean isActivityActive = false;
+    private NotificationPanelView notificationPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        setupNavigationBar();
+        setContentLayout(R.layout.activity_home);
+        
+        // Initialize notification panel
+        notificationPanel = findViewById(R.id.notificationPanel);
+        
+        // Initialize views and setup
         initializeViews();
         setupHealthTips();
-        setupProgressSection();
+        setupProgressItems();
+        
+        // Setup navigation bar
+        setupNavigationBar();
     }
 
     private void initializeViews() {
@@ -137,7 +146,7 @@ public class HomeActivity extends BaseActivity {
         initializeAutoSwipe();
     }
 
-    private void setupProgressSection() {
+    private void setupProgressItems() {
         progressItems = new ArrayList<>();
         progressItems.add(new ProgressItem(R.drawable.ic_steps, "Steps", 0, "0/10,000"));
         progressItems.add(new ProgressItem(R.drawable.ic_calories, "Calories", 0, "0/2,000"));
@@ -315,6 +324,27 @@ public class HomeActivity extends BaseActivity {
         if (progressItems != null) {
             progressItems.clear();
             progressItems = null;
+        }
+    }
+
+    @Override
+    protected void setupNavigationBar() {
+        // Call parent class implementation first
+        super.setupNavigationBar();
+        
+        // Then handle notifications specifically for HomeActivity
+        View navBar = findViewById(R.id.navigationBar);
+        if (navBar != null) {
+            ImageButton notificationsButton = navBar.findViewById(R.id.navNotifications);
+            if (notificationsButton != null) {
+                notificationsButton.setOnClickListener(v -> {
+                    if (notificationPanel.isPanelShowing()) {
+                        notificationPanel.hide();
+                    } else {
+                        notificationPanel.show();
+                    }
+                });
+            }
         }
     }
 }

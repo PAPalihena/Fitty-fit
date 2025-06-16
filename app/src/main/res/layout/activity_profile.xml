@@ -479,6 +479,65 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Connected Devices Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Connected Devices"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/intense_orange"
+                        android:layout_marginBottom="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_smartwatch"
+                            android:tint="@color/intense_orange"
+                            android:layout_marginEnd="16dp"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Smart Watch"
+                            android:textSize="16sp"
+                            android:textColor="@color/text_primary"/>
+
+                        <ImageButton
+                            android:id="@+id/smartWatchSettingsButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_settings"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="8dp"
+                            android:tint="@color/text_secondary"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Profile Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"

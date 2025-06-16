@@ -74,10 +74,10 @@
                             android:paddingVertical="8dp"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/personalChallengesContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/personalChallengesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                         android:orientation="vertical"/>
 
                 </LinearLayout>
@@ -107,9 +107,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Group Challenges"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
+                android:text="Group Challenges"
+                android:textSize="20sp"
+                android:textStyle="bold"
                             android:textColor="@color/text_primary"/>
 
                         <com.google.android.material.button.MaterialButton
@@ -124,15 +124,15 @@
                             android:paddingVertical="8dp"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/groupChallengesContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:id="@+id/groupChallengesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
         </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout> 
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout> 

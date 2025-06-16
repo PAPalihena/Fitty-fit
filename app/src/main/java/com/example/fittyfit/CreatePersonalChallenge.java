@@ -113,7 +113,8 @@ public class CreatePersonalChallenge extends BaseActivity {
             System.currentTimeMillis(),
             "", // No prize for personal challenges
             "active", // status
-            1 // totalParticipants (just the creator)
+            1, // totalParticipants (just the creator)
+            "" // No image for personal challenges
         );
 
         firebaseHelper.saveChallenge(challenge, (success, challengeId) -> {

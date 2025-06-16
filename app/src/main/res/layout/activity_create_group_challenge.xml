@@ -6,180 +6,219 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <include
-        android:id="@+id/navigationBar"
-        layout="@layout/navigation_bar"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:orientation="vertical">
 
-            <!-- Header Section -->
-            <TextView
+            <!-- Header Section with Gradient Background -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Group Challenge"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_marginBottom="8dp"/>
+                android:orientation="vertical"
+                android:background="@drawable/gradient_header"
+                android:padding="24dp"
+                android:paddingTop="32dp"
+                android:paddingBottom="32dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Challenge your friends to achieve fitness goals together"
-                android:textSize="16sp"
-                android:textColor="@color/gray"
-                android:gravity="center"
-                android:layout_marginBottom="32dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create Group Challenge"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp"/>
 
-            <!-- Challenge Image -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Challenge your friends to achieve fitness goals together"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:alpha="0.9"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!-- Challenge Image with Shadow -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-40dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp">
 
                 <ImageView
-                    android:id="@+id/groupChallengeImage"
+                    android:id="@+id/challengeImage"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="240dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/group_challenge_animation"/>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Challenge Details Section -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
+                android:orientation="vertical"
+                android:padding="24dp">
 
+                <!-- Challenge Title -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Challenge Title"
+                    app:startIconDrawable="@drawable/ic_title"
+                    app:startIconTint="@color/profile_primary"
+                    app:boxStrokeColor="@color/profile_primary"
+                    app:hintTextColor="@color/profile_primary"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/challengeTitleInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Date Selection Cards -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:hint="Challenge Title"
-                        app:startIconDrawable="@drawable/ic_title"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/challengeTitleInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
                         android:hint="Start Date"
                         app:startIconDrawable="@drawable/ic_calendar"
+                        app:startIconTint="@color/profile_primary"
+                        app:boxStrokeColor="@color/profile_primary"
+                        app:hintTextColor="@color/profile_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/startDateInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:textSize="16sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
                         android:hint="End Date"
                         app:startIconDrawable="@drawable/ic_calendar"
+                        app:startIconTint="@color/profile_primary"
+                        app:boxStrokeColor="@color/profile_primary"
+                        app:hintTextColor="@color/profile_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/endDateInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:focusable="false"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Prize for Winners"
-                        app:startIconDrawable="@drawable/ic_prize"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/prizeInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"/>
+                            android:focusable="false"
+                            android:textSize="16sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Participants Section -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
+                <!-- Prize Input -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginBottom="24dp"
+                    android:hint="Prize for Winners"
+                    app:startIconDrawable="@drawable/ic_prize"
+                    app:startIconTint="@color/profile_primary"
+                    app:boxStrokeColor="@color/profile_primary"
+                    app:hintTextColor="@color/profile_primary"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/prizeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Participants"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp"/>
+                        android:inputType="text"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/addParticipantsButton"
+                <!-- Participants Section -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/divider">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Add Participants"
-                        app:icon="@drawable/ic_person_add"
-                        android:layout_marginBottom="16dp"/>
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/participantsRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Participants"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginBottom="16dp"/>
 
-            <!-- Create Challenge Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/createChallengeButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Challenge"
-                android:textSize="16sp"
-                android:padding="12dp"
-                app:cornerRadius="12dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/addParticipantsButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Add Participants"
+                            android:textSize="16sp"
+                            app:icon="@drawable/ic_person_add"
+                            app:iconGravity="textStart"
+                            app:cornerRadius="12dp"
+                            android:padding="12dp"
+                            android:layout_marginBottom="16dp"/>
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/participantsRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:paddingTop="8dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Create Challenge Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/createChallengeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create Challenge"
+                    android:textSize="18sp"
+                    android:padding="16dp"
+                    app:cornerRadius="16dp"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout> 

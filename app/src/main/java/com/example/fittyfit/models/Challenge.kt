@@ -14,7 +14,8 @@ data class Challenge(
     val createdAt: Long = System.currentTimeMillis(),
     val prize: String = "", // Prize for group challenges
     val status: String = "active", // active, completed, cancelled
-    val totalParticipants: Int = 0 // Total number of participants for group challenges
+    val totalParticipants: Int = 0, // Total number of participants for group challenges
+    val imageUrl: String = "" // URL for the challenge image
 ) {
     fun getLeadingParticipant(): String {
         return participants.entries

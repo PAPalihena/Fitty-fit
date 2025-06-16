@@ -15,10 +15,75 @@ class FirebaseDatabaseHelper {
     private val userChallengesRef: DatabaseReference = database.child("user_challenges")
     private val groupChallengesRef: DatabaseReference = userChallengesRef.child("group_challenges")
 
-    // Callback interface for challenges
+    // Callback interfaces
     interface ChallengesCallback {
         fun onChallengesLoaded(challenges: List<Challenge>)
         fun onError(error: String)
+    }
+
+    interface Callback {
+        fun onSuccess()
+        fun onError(error: String)
+    }
+
+    // Join a group challenge
+    fun joinGroupChallenge(challengeId: String, userId: String, callback: Callback) {
+        val challengeRef = challengesRef.child(challengeId)
+        val userChallengeRef = userChallengesRef.child(userId).child(challengeId)
+
+        // First check if the challenge exists
+        challengeRef.get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.exists()) {
+                    // Add user to challenge participants
+                    val updates = HashMap<String, Any>()
+                    updates["participants/$userId/joinedAt"] = System.currentTimeMillis()
+                    updates["participants/$userId/progress"] = 0
+                    updates["participants/$userId/isLeader"] = false
+
+                    challengeRef.updateChildren(updates)
+                        .addOnSuccessListener {
+                            // Also add reference in user_challenges
+                            userChallengeRef.setValue(true)
+                                .addOnSuccessListener {
+                                    callback.onSuccess()
+                                }
+                                .addOnFailureListener { e ->
+                                    callback.onError("Error joining challenge: ${e.message}")
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            callback.onError("Error joining challenge: ${e.message}")
+                        }
+                } else {
+                    callback.onError("Challenge not found")
+                }
+            }
+            .addOnFailureListener { e ->
+                callback.onError("Error checking challenge: ${e.message}")
+            }
+    }
+
+    // Leave a group challenge
+    fun leaveGroupChallenge(challengeId: String, userId: String, callback: Callback) {
+        val challengeRef = challengesRef.child(challengeId)
+        val userChallengeRef = userChallengesRef.child(userId).child(challengeId)
+
+        // Remove user from challenge participants
+        challengeRef.child("participants").child(userId).removeValue()
+            .addOnSuccessListener {
+                // Also remove reference from user_challenges
+                userChallengeRef.removeValue()
+                    .addOnSuccessListener {
+                        callback.onSuccess()
+                    }
+                    .addOnFailureListener { e ->
+                        callback.onError("Error leaving challenge: ${e.message}")
+                    }
+            }
+            .addOnFailureListener { e ->
+                callback.onError("Error leaving challenge: ${e.message}")
+            }
     }
 
     // Get personal challenges
@@ -95,7 +160,8 @@ class FirebaseDatabaseHelper {
                                 } ?: System.currentTimeMillis(),
                                 prize = prizeString,
                                 status = data["status"] as? String ?: "active",
-                                totalParticipants = totalParticipants.toInt()
+                                totalParticipants = totalParticipants.toInt(),
+                                imageUrl = data["imageUrl"] as? String ?: ""
                             )
                             challenges.add(challenge)
                             println("Added challenge: ${challenge.title}")
@@ -195,7 +261,8 @@ class FirebaseDatabaseHelper {
                         } ?: System.currentTimeMillis(),
                         prize = prizeString,
                         status = challengeData["status"] as? String ?: "active",
-                        totalParticipants = totalParticipants.toInt()
+                        totalParticipants = totalParticipants.toInt(),
+                        imageUrl = challengeData["imageUrl"] as? String ?: ""
                     )
                     onDataLoaded(challenge)
                 } else {
