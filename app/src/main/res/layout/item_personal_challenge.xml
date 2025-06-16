@@ -14,131 +14,113 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Left side: Challenge Icon and Type -->
+        <!-- Challenge Type and Title -->
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/circle_background"
-            android:padding="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
 
             <ImageView
                 android:id="@+id/challengeTypeIcon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="4dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
                 android:tint="@color/challenge_orange"/>
 
             <TextView
                 android:id="@+id/challengeType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/challenge_orange"
-                android:gravity="center"/>
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/challengeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/personalChallengeProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/challenge_orange"
+                android:layout_marginStart="8dp"/>
         </LinearLayout>
 
-        <!-- Right side: Challenge Details -->
-        <LinearLayout
-            android:layout_width="0dp"
+        <!-- Description -->
+        <TextView
+            android:id="@+id/challengeDescription"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginBottom="12dp"/>
 
-            <!-- Title and Progress -->
+        <!-- Progress Bar and Duration -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/personalChallengeProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                app:indicatorColor="@color/challenge_orange"
+                app:trackColor="@color/gray_light"
+                app:trackThickness="6dp"
+                android:layout_marginBottom="8dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="@color/challenge_orange"
+                    android:layout_marginEnd="4dp"/>
 
                 <TextView
-                    android:id="@+id/challengeTitle"
+                    android:id="@+id/challengeDuration"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"/>
 
-                <TextView
-                    android:id="@+id/personalChallengeProgressText"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/viewDetailsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/challenge_orange"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-
-            <!-- Description -->
-            <TextView
-                android:id="@+id/challengeDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- Progress Bar and Duration -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/personalChallengeProgress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    app:indicatorColor="@color/challenge_orange"
-                    app:trackColor="@color/gray_light"
-                    app:trackThickness="6dp"
-                    android:layout_marginBottom="8dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_calendar"
-                        android:tint="@color/challenge_orange"
-                        android:layout_marginEnd="4dp"/>
-
-                    <TextView
-                        android:id="@+id/challengeDuration"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/viewDetailsButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Details"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        app:backgroundTint="@color/challenge_orange"
-                        app:cornerRadius="16dp"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"/>
-                </LinearLayout>
+                    android:text="Details"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/challenge_orange"
+                    app:cornerRadius="16dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
