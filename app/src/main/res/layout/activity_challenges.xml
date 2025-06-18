@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +9,15 @@
     <include
         android:id="@+id/navigationBar"
         layout="@layout/navigation_bar"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Challenges"
+        app:titleTextColor="@color/text_primary" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,75 +32,93 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Header Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Challenges"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_marginBottom="24dp"/>
-
-            <!-- Personal Challenges Section -->
+            <!-- Main Title -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardElevation="8dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="#FF6B35"
+                app:cardBackgroundColor="#FFF2E6">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp"
+                    android:gravity="center">
 
-                    <LinearLayout
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_trophy"
+                        android:tint="#FF6B35"
+                        android:layout_marginBottom="12dp"/>
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
+                        android:text="Challenge Yourself and Others..."
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="#FF6B35"
+                        android:gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.05"
+                        android:lineSpacingExtra="4dp"/>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Personal Challenges"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/text_primary"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/createPersonalChallengeButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Create"
-                            android:textColor="@color/white"
-                            app:backgroundTint="@color/challenge_orange"
-                            app:cornerRadius="20dp"
-                            android:paddingHorizontal="16dp"
-                            android:paddingVertical="8dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/personalChallengesContainer"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
-
+                        android:text="Set goals, track progress, and achieve together"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:alpha="0.8"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Group Challenges Section -->
+            <!-- Personal Challenges Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/section_header_background"
+                android:padding="12dp"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    android:tint="@color/challenge_orange"
+                    android:layout_marginEnd="12dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Personal Challenges"
+                    android:textSize="22sp"
+                    android:textColor="@color/challenge_orange"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Level Information for Personal Challenges -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:strokeWidth="1dp"
+                app:strokeColor="#4CAF50"
+                app:cardBackgroundColor="#F1F8E9">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,37 +131,184 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="2dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_trophy"
+                            android:tint="#4CAF50"
+                            android:layout_marginEnd="4dp"/>
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Group Challenges"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/text_primary"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/createGroupChallengeButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Create"
-                            android:textColor="@color/white"
-                            app:backgroundTint="@color/challenge_orange"
-                            app:cornerRadius="20dp"
-                            android:paddingHorizontal="16dp"
-                            android:paddingVertical="8dp"/>
+                            android:text="Level 3 - Fitness Enthusiast"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#4CAF50"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/groupChallengesContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:progress="75"
+                            app:indicatorColor="#4CAF50"
+                            app:trackColor="#E8F5E8"
+                            app:trackThickness="6dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="750/1000 XP"
+                            android:textSize="12sp"
+                            android:textColor="#4CAF50"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Personal Challenges Container -->
+            <LinearLayout
+                android:id="@+id/personalChallengesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreatePersonalChallenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Personal Challenge"
+                android:textSize="14sp"
+                app:cornerRadius="24dp"
+                android:layout_marginBottom="40dp"/>
+
+            <!-- Section Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/challenge_orange"
+                android:layout_marginVertical="16dp"
+                android:alpha="0.3"/>
+
+            <!-- Group Challenges Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/section_header_background"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_group"
+                    android:tint="@color/challenge_orange"
+                    android:layout_marginEnd="12dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Group Challenges"
+                    android:textSize="22sp"
+                    android:textColor="@color/challenge_orange"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Level Information for Group Challenges -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#4CAF50"
+                app:cardBackgroundColor="#F1F8E9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="2dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_trophy"
+                            android:tint="#4CAF50"
+                            android:layout_marginEnd="4dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Level 2 - Team Player"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#4CAF50"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:progress="45"
+                            app:indicatorColor="#4CAF50"
+                            app:trackColor="#E8F5E8"
+                            app:trackThickness="6dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="450/1000 XP"
+                            android:textSize="12sp"
+                            android:textColor="#4CAF50"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Group Challenges Container -->
+            <LinearLayout
+                android:id="@+id/groupChallengesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateGroupChallenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Group Challenge"
+                android:textSize="14sp"
+                app:cornerRadius="24dp"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout> 

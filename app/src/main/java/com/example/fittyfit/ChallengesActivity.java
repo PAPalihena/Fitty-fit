@@ -46,8 +46,11 @@ public class ChallengesActivity extends BaseActivity {
     }
 
     private void setupCreateButtons() {
-        MaterialButton createPersonalButton = findViewById(R.id.createPersonalChallengeButton);
-        MaterialButton createGroupButton = findViewById(R.id.createGroupChallengeButton);
+        // Initialize buttons
+        MaterialButton createPersonalButton = findViewById(R.id.btnCreatePersonalChallenge);
+        MaterialButton createGroupButton = findViewById(R.id.btnCreateGroupChallenge);
+        MaterialButton loadMorePersonalButton = findViewById(R.id.btnLoadMorePersonal);
+        MaterialButton loadMoreGroupButton = findViewById(R.id.btnLoadMoreGroup);
 
         if (createPersonalButton != null) {
             createPersonalButton.setOnClickListener(v -> {

@@ -148,10 +148,10 @@ public class HomeActivity extends BaseActivity {
 
     private void setupProgressItems() {
         progressItems = new ArrayList<>();
-        progressItems.add(new ProgressItem(R.drawable.ic_steps, "Steps", 0, "0/10,000"));
-        progressItems.add(new ProgressItem(R.drawable.ic_calories, "Calories", 0, "0/2,000"));
-        progressItems.add(new ProgressItem(R.drawable.ic_distance, "Distance", 0, "0/5 km"));
-        progressItems.add(new ProgressItem(R.drawable.ic_workout, "Workout Time", 0, "0/60 min"));
+        progressItems.add(new ProgressItem(R.drawable.ic_steps, "Steps", 65, "6500/10,000"));
+        progressItems.add(new ProgressItem(R.drawable.ic_calories, "Calories", 45, "900/2,000"));
+        progressItems.add(new ProgressItem(R.drawable.ic_distance, "Distance", 30, "1.5/5 km"));
+        progressItems.add(new ProgressItem(R.drawable.ic_workout, "Workout Time", 75, "45/60 min"));
 
         progressAdapter = new ProgressAdapter(progressItems);
         progressRecyclerView.setAdapter(progressAdapter);
